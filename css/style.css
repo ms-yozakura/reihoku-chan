@@ -20,6 +20,13 @@ body {
   border-bottom-right-radius: 50% 20%;
 }
 
+@media (max-width: 600px) {
+  .header h1 {
+    font-size: 1.2rem;
+  }
+}
+
+
 .top {
   height: 90vh;
   padding-top: 10vh;
@@ -147,7 +154,7 @@ body {
 
 .speech-bubble {
   position: relative;
-  bottom: -30vh;
+  bottom: -25vh;
   left: 0;
   background-color: #fff;
   color: #666;
@@ -156,21 +163,48 @@ body {
   font-size: 1.7rem;
   font-family: "Yusei Magic", sans-serif;
   justify-content: center;
-  text-align:center;
+  text-align: center;
   transition: 200ms ease;
 }
 
-.speech-bubble::after{
-  content:"";
+.speech-bubble::after {
+  content: "";
   position: absolute;
-  top:0px;
+  top: 0px;
   left: calc(50% - 25px);
-  transform : translateY(-50%) rotate(45deg);
-  width:50px;
-  height:50px;
-  background-color: #fff;
+  transform: translateY(-90%);
+  border-bottom: 25px solid #fff;
+  border-left: 25px solid transparent;
+  border-right: 25px solid transparent;
+  width: 0px;
+  height: 0px;
 }
 
+@media (max-width: 600px) {
+  .character-container {
+    max-width: 80%;
+    max-height: 80%;
+  }
+
+  .circleText {
+    max-width: 83%;
+    min-height: 83%;
+  }
+
+  .speech-bubble {
+    font-size: 1rem;
+    max-width: 80%;
+  }
+}
+
+
+
+.top {
+  height: 90vh;
+  padding-top: 10vh;
+  display: flex;
+  align-items: center;
+}
 
 .container {
   max-width: 900px;
@@ -195,17 +229,6 @@ body {
 
 .gallery img {
   width: 100%;
-}
-
-/* スマホ対応 */
-@media (max-width: 600px) {
-  .profile {
-    flex-direction: column;
-  }
-
-  .profile img {
-    width: 100%;
-  }
 }
 
 .fade {
