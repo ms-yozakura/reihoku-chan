@@ -1,10 +1,57 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ja">
+
 <head>
-  <title>Hello</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!--Google Fonts-->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
 </head>
+
 <body>
-  <h1>Hello Vercel</h1>
+  <header class="header">
+    <h1>苓北町キャラクター特設サイト</h1>
+  </header>
+
+  <section class="top">
+    <svg class="circleText" viewBox="0 0 100 100">
+      <path id="circle" class="circleText__circle" d="M 0 50 A 50 50 0 1 1 0 51 z" />
+
+      <path id="circle_r" class="circleText__circle" d="M 0 50 A 50 50 0 1 0 0 49z" />
+
+      <text class=" circleText__hello">
+        <textPath xlink:href="#circle" startOffset="30%">
+          こんにちは！
+        </textPath>
+          <textPath xlink:href="#circle_r" startOffset="30%" text-anchor="end">
+          苓北から来たばい！！
+        </textPath>
+
+      </text>
+
+    </svg>
+    <div class="character-container">
+      <div class="wave-shape"></div>
+      <img class="anim-float" src="img/reihoku-chan.png">
+    </div>
+  </section>
+
+  <section class="profile container">
+    <div>
+      <h2>プロフィール</h2>
+      <p>年齢：??</p>
+      <p>性格：??</p>
+    </div>
+  </section>
+
+  <section class="gallery container">
+  </section>
+
+
 </body>
+
 </html>

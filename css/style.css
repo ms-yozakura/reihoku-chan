@@ -1,0 +1,177 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: linear-gradient(135deg, skyblue, steelblue);
+  color: white;
+}
+
+.header {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  background-color: rgba(0, 161, 254, 0.8);
+  padding: 20px;
+  text-align: center;
+  z-index: 10000;
+}
+
+.top {
+  height: 90vh;
+  padding-top: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+
+.circleText {
+  position: absolute;
+  overflow: visible;
+  max-width: 73%;
+  min-height: 73%;
+  animation: rotation 18s linear infinite;
+}
+
+.circleText__circle {
+  fill: none;
+}
+
+.circleText__hello {
+  fill: #fff;
+  font-family: "Yusei Magic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}
+.circleText__rei {
+  fill: #fff;
+  font-family: "Yusei Magic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+}
+
+
+.character-container {
+  position: absolute;
+  /* ←ステージ化 */
+  display: flex;
+
+  border-radius: 50%;
+  background-color: azure;
+  aspect-ratio: 1 / 1;
+  max-width: 70%;
+  max-height: 70%;
+  border: 5px solid #00a1fe;
+
+  overflow: hidden;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.character-container img {
+  width: 80%;
+  animation: floating 3s ease-in-out infinite;
+}
+
+
+@keyframes floating {
+  0% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.wave-shape {
+  position: absolute;
+  inset: 0;
+  /* ← top:0;left:0;right:0;bottom:0; と同じ */
+
+  overflow: hidden;
+  z-index: 0;
+}
+
+.wave-shape::after {
+  position: absolute;
+  top: 70%;
+  left: -100%;
+  border-radius: 70% 65% / 50% 45%;
+  width: 300%;
+  height: 300%;
+  content: "";
+  background-color: #64c4fe;
+  animation: wave linear 10s infinite;
+  opacity: 0.5;
+}
+
+.wave-shape::before {
+  position: absolute;
+  top: 70%;
+  left: -100%;
+  border-radius: 50% 45% / 70% 65%;
+  width: 300%;
+  height: 300%;
+  content: "";
+  background-color: #a4ddfe;
+  animation: wave linear 10s infinite;
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.profile {
+  display: flex;
+  gap: 20px;
+}
+
+.profile img {
+  width: 300px;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.gallery img {
+  width: 100%;
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile img {
+    width: 100%;
+  }
+}
