@@ -28,6 +28,7 @@ body {
 
 
 .top {
+  position: relative;
   height: 90vh;
   padding-top: 10vh;
   display: flex;
