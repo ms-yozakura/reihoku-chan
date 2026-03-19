@@ -33,7 +33,7 @@
       </svg>
       <div class="character-container">
         <div class="wave-shape"></div>
-        <img class="anim-float" src="img/reihoku-chan.png">
+        <img class="anim-float" src="img/reihoku-chan.png" onclick="showComment()">
       </div>
 
       <div id="rei-comment" class="speech-bubble">
@@ -44,11 +44,15 @@
 
   <section class="profile container">
     <div class="profile-wrapper">
-      <h3>僕は「れいほくちゃん（仮）」！</h3>
-      <br>
+      <div class="icon-line">
+        <img class="dolphin-ico" src="img/dolphin.png">
+      </div>
+      <h3>＊僕は"れいほくちゃん(仮)"！＊</h3>
       <div class="profile-content">
-        <div class="speech-bubble blue">
-          実はまだ名前はないんだ！気軽に「れいほくちゃん」って呼んでね！
+        <div style="width: 100%; display: flex; justify-content: center;">
+          <div class="speech-bubble blue small">
+            実はまだ名前はないんだ！気軽に「れいほくちゃん」って呼んでね！
+          </div>
         </div>
         <br><br>
         <div class="detail-profile-circles">
@@ -71,11 +75,15 @@
         <p>
           僕は見ての通りイルカ！頭にはとっても美味しいレタスに、綺麗な緋扇貝（ひおうぎがい）の貝殻をつけてるんだ！<br>
           これは全部、苓北町の名物なんだよ！<br>
-          ん？苓北町ってどこかって？それはね、熊本県の天草にある小さな町なんだ！<br>
+          ん？苓北町ってどこかって？それはね、熊本県の天草地方にある小さな町なんだ！<br>
         </p>
         <div class="map-wrapper">
+          <!--
           <img src="img/map-japan-green-todoufuken.png">
           <img src="img/reihoku-here.png">
+          -->
+
+          <img src="img/reihoku_here_in _japan.png">
 
         </div>
       </div>
@@ -92,6 +100,10 @@
 
   <section class="gallery container">
   </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 苓北町キャラクター特設サイト</p>
+  </footer>
 
   <script src="js/script.js"></script>
 </body>

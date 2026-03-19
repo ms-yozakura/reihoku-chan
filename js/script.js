@@ -1,6 +1,7 @@
+let timerComment;
 
 window.onload = function () {
-  timerComment();
+  timerComment = setInterval(comment, 3000); // 3秒ごとに更新
 }
 
 const commentList = [
@@ -27,9 +28,13 @@ const comment = () => {
   }, 300); // CSSのtransitionと合わせる
 }
 
-const timerComment = () => {
-  setInterval(comment, 6000);
+const showComment = () => {
+  clearInterval(timerComment);
+  comment();
+  timerComment = setInterval(comment, 6000);
 }
+
+
 const circles = document.querySelectorAll(".circle");
 
 const overlay = document.querySelector(".overlay");
@@ -38,6 +43,7 @@ circles.forEach(circle => {
   circle.addEventListener("click", () => {
     const target = circle.dataset.target;
 
+
     document.querySelectorAll(".modal").forEach(m => {
       m.classList.remove("active");
     });
@@ -45,6 +51,7 @@ circles.forEach(circle => {
     document.getElementById(target).classList.add("active");
     overlay.classList.add("active");
 
+    document.body.style.paddingRight = scrollbarWidth + "px";
     document.body.classList.add("no-scroll");
   });
 });
@@ -54,5 +61,6 @@ overlay.addEventListener("click", () => {
     m.classList.remove("active");
   });
   overlay.classList.remove("active");
+  document.body.style.paddingRight = "";
   document.body.classList.remove("no-scroll");
 });

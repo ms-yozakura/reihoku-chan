@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  background-color: azure;
+  background-color: white;
   color: white;
 }
 
@@ -38,15 +38,16 @@ body {
   background-image: url("../img/bankan.jpg");
   background-size: cover;
   background-position: center;
-  
 }
+
 .top::before {
-  content: "";         /* 疑似要素に必須 */
-  width: 100%;         /* 幅いっぱい */
-  height: 100%;        /* 高さいっぱい */
-  display: block;      /* 高さを指定するためにブロック要素にする */
-  background: linear-gradient(rgba(255,255,255,0) 80%, azure 100%);
-  position: absolute;  /*  */
+  content: "";
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(rgba(255, 255, 255, 0) 80%, white 100%);
+  position: absolute;
+  /*  */
   top: 0;
   left: 0;
 }
@@ -183,6 +184,7 @@ body {
   justify-content: center;
   text-align: center;
   transition: 200ms ease;
+  display: inline-block;
 }
 
 .speech-bubble::after {
@@ -197,11 +199,17 @@ body {
   width: 0px;
   height: 0px;
 }
-.speech-bubble.blue{
+
+.speech-bubble.blue {
   color: white;
   background-color: #88c7e3;
 }
-.speech-bubble.blue::after{
+
+.speech-bubble.small{
+  padding: 10px;
+  font-size: 1rem;
+}
+.speech-bubble.blue::after {
   border-bottom: 25px solid #88c7e3;
 }
 
@@ -242,9 +250,6 @@ body {
   gap: 20px;
 }
 
-.profile img {
-  width: 300px;
-}
 
 .gallery {
   display: grid;
@@ -282,7 +287,7 @@ body {
   font-family: "Yusei Magic", sans-serif;
   font-weight: 400;
   font-style: normal;
-  font-size: 2.0rem;
+  font-size: 2.5rem;
   color: #555;
 }
 
@@ -300,49 +305,89 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 全体を中央に寄せる */
-  gap: 16px;
 }
 
 .row {
   display: flex;
   justify-content: center;
   /* 各段を中央揃え */
-  gap: 10vw;
+  gap: 3vw;
   align-items: center;
 }
 
 .row:nth-child(2) {
-  gap: 5vw;
+  gap: 3vw;
 }
 
 .circle {
-  width: 17vw;
-  height: 17vw;
+  width: 10vw;
+  height: 10vw;
   border-radius: 50%;
-  background: linear-gradient(135deg, #8cb8d3, skyblue);
+  background: linear-gradient(135deg, #62caf9, #95daf9);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   color: white;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
+  /*animation: floating-small 6s ease-in-out infinite;*/ 
+  cursor: pointer;
+  transition:0.3s ease;
+}
+.circle:hover {
+  background: linear-gradient(135deg, #95daf9, #62caf9);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+/*
+.row:nth-child(1) .circle:nth-child(1){
+  animation-delay: 0s;
+}
+.row:nth-child(1) .circle:nth-child(2){
+  animation-delay: -1s;
+}
+.row:nth-child(2) .circle:nth-child(1){
+  animation-delay: -2s;
+}
+.row:nth-child(2) .circle:nth-child(3){
+  animation-delay: -3s;
+}
+.row:nth-child(3) .circle:nth-child(1){
+  animation-delay: -4s;
+}
+.row:nth-child(3) .circle:nth-child(2){
+  animation-delay: -5s;
 }
 
+@keyframes floating-small {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  50% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(-10px);
+  }
+}
+*/
+
 .big-circle {
-  width: 25vw;
-  height: 25vw;
+  width: 10vw;
+  height: 10vw;
   aspect-ratio: 1;
   border-radius: 50%;
   background-image: url("../img/reihoku-chan.png");
   background-size: cover;
   background-position: center;
+  transform: scale(1.6);
 }
 
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: #fffa;
   opacity: 0;
   pointer-events: none;
   transition: 0.3s;
@@ -350,8 +395,10 @@ body {
 
 .overlay.active {
   opacity: 1;
-  pointer-events: auto; /* ←これで裏クリック遮断 */
+  pointer-events: auto;
+  /* ←これで裏クリック遮断 */
 }
+
 .modal {
   position: fixed;
   top: 50vh;
@@ -366,7 +413,7 @@ body {
   pointer-events: none;
   width: 60vw;
   height: 40vh;
-  border: 5px solid #00a1fe;
+  border: 3px solid #70c1fe;
 }
 
 .modal.active {
@@ -377,7 +424,7 @@ body {
 
 @media (max-width: 600px) {
 
-  .profile-wrapper h3{
+  .profile-wrapper h3 {
     font-size: 1.4rem;
   }
 
@@ -385,14 +432,27 @@ body {
     font-size: 1rem;
   }
 
+  .detail-profile-circles {
+    gap: 3vw;
+  }
+
+  .row{
+    gap: 5vw;
+  }
+
+  .row:nth-child(2) {
+    gap:  5vw;
+  }
+
   .circle {
-    width: 20vw;
-    height: 20vw;
+    width: 22vw;
+    height: 22vw;
   }
 
   .big-circle {
-    width: 30vw;
-    height: 30vw;
+    width: 25vw;
+    height: 25vw;
+    transform: scale(1.2);
   }
 
   .modal {
@@ -403,4 +463,64 @@ body {
 
 .no-scroll {
   overflow: hidden;
+  height: 100vh;
+}
+
+
+.map-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-wrapper img {
+  width: 80%;
+}
+
+.icon-line img {
+  position: relative;
+  display: block;
+  width: 10vw;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.icon-line {
+  position: relative;
+}
+
+.icon-line::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  width: 30vw;
+  height: 2px;
+  background-color: #70c1fe;
+  background-color: transparent;
+  border-top: 2px solid #70c1fe;
+  border-bottom: 1px solid #70c1fe;
+}
+
+.icon-line::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: 30vw;
+  height: 2px;
+  background-color: transparent;
+  border-top: 2px solid #70c1fe;
+  border-bottom: 1px solid #70c1fe;
+}
+
+
+footer{
+  text-align: center;
+  padding: 20px;
+  font-size: 0.9rem;
+  color: #555;
+  background-color: #62caf9;
 }
