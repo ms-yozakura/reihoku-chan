@@ -1,7 +1,7 @@
 let timerComment;
 
 window.onload = function () {
-  timerComment = setInterval(comment, 3000); // 3秒ごとに更新
+  timerComment = setInterval(comment, 6000);
 }
 
 const commentList = [
