@@ -4,17 +4,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>苓北町|オリジナルキャラ|特設サイト</title>
+  <title>れいほくちゃん|苓北町オリジナルキャラ|特設サイト</title>
   <link rel="stylesheet" href="css/style.css">
   <!--Google Fonts-->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&display=swap" rel="stylesheet">
+  <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js" defer></script>
 </head>
 
 <body>
   <header class="header">
-    <h1>苓北町キャラクター特設サイト</h1>
+    <a class="site-title" href="#top">苓北町キャラクター特設サイト</a>
+    <nav class="site-nav" aria-label="メインナビゲーション">
+      <a href="#top">トップ</a><a href="#profile">れいほくちゃんについて</a><a href="#town">苓北町のこと</a>
+    </nav>
   </header>
 
   <div class="bubble-container">
@@ -27,8 +31,15 @@
     <div class="bubble"></div>
   </div>
 
-  <section class="top">
+  <section class="top" id="top">
     <div class="character-wrapper">
+      <div class="hero-copy">
+        <span>海と、山と、おいしい町。</span>
+        <h1>こんにちは！<br>苓北から来たばい！</h1>
+        <p>熊本・天草の西海岸から、<br>苓北町の魅力を届けるばい！</p>
+      </div>
+      <div class="hero-orbit">
+      <div class="circle-text-frame" aria-hidden="true">
       <svg class="circleText" viewBox="0 0 100 100">
         <path id="circle" class="circleText__circle" d="M 0 50 A 50 50 0 1 1 0 51 z" />
 
@@ -41,23 +52,26 @@
         </text>
 
       </svg>
+      </div>
       <div class="character-container">
         <div class="wave-shape"></div>
-        <img class="anim-float" src="img/reihoku-chan.png" onclick="showComment()">
+        <img class="anim-float" src="img/reihoku-chan.png" alt="れいほくちゃん（仮）" onclick="showComment()">
       </div>
 
       <div id="rei-comment" class="speech-bubble">
         初めまして！<br>苓北町には魅力がたくさんあるばい！
       </div>
+      </div>
     </div>
   </section>
 
-  <section class="profile container">
+  <section class="profile container" id="profile">
     <div class="profile-wrapper section-wrapper">
       <div class="icon-line">
         <img class="dolphin-ico" src="img/dolphin.png">
       </div>
-      <h3>ボクは"れいほくちゃん(仮)"！</h3>
+      <p class="section-kicker">ABOUT ME</p>
+      <h2 class="section-title">ボクは「れいほくちゃん（仮）」！</h2>
       <div class="profile-content">
         <div style="width: 100%; display: flex; justify-content: center;">
           <div class="speech-bubble blue small bubbled">
@@ -67,52 +81,48 @@
         <br><br>
         <div class="detail-profile-circles">
           <div class="row">
-            <div class="circle" data-target="skill">特技</div>
-            <div class="circle" data-target="like">好きなこと</div>
+            <div class="circle" data-target="skill"><iconify-icon icon="lucide:sparkles"></iconify-icon><span>特技</span></div>
+            <div class="circle" data-target="like"><iconify-icon icon="lucide:binoculars"></iconify-icon><span>好きなこと</span></div>
           </div>
           <div class="row">
-            <div class="circle" data-target="personality">性格</div>
+            <div class="circle" data-target="personality"><iconify-icon icon="lucide:heart"></iconify-icon><span>性格</span></div>
             <div class="big-circle"></div>
-            <div class="circle" data-target="food">好きな食べ物</div>
+            <div class="circle" data-target="food"><iconify-icon icon="lucide:fish"></iconify-icon><span>好きな食べ物</span></div>
           </div>
           <div class="row">
-            <div class="circle" data-target="dream">将来の夢</div>
-            <div class="circle" data-target="comment">ひとこと</div>
+            <div class="circle" data-target="dream"><iconify-icon icon="lucide:sprout"></iconify-icon><span>将来の夢</span></div>
+            <div class="circle" data-target="comment"><iconify-icon icon="lucide:message-circle"></iconify-icon><span>ひとこと</span></div>
           </div>
-        </div>
-        <br>
-        <p>
-          ボクは見ての通りイルカ！頭にはとっても美味しいレタスに、きれいな<ruby>緋扇貝<rp>（</rp>
-            <rt>ひおうぎがい</rt>
-            <rp>）</rp>
-          </ruby>の<ruby>貝殻<rp>（</rp>
-            <rt>かいがら</rt>
-            <rp>）</rp>
-          </ruby>をつけてるんだ！<br>
-          これは全部、<ruby>苓北町<rp>（</rp>
-            <rt>れいほくまち</rt>
-            <rp>）</rp>
-          </ruby>の名物なんだよ！
-        </p>
-        <p>
-          ん？苓北町ってどこかって？それはね、<ruby>熊本県<rp>（</rp>
-            <rt>くまもとけん</rt>
-            <rp>）</rp>
-          </ruby>の<ruby>天草地方<rp>（</rp>
-            <rt>あまくさちほう</rt>
-            <rp>）</rp>
-          </ruby>にある小さな町なんだ！<br>
-        </p>
-        <div class="map-wrapper">
-          <!--
-          <img src="img/map-japan-green-todoufuken.png">
-          <img src="img/reihoku-here.png">
-          -->
-
-          <img src="img/reihoku_here_in _japan.png">
-
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="head-story content-section" id="head-story">
+    <div class="section-heading"><p class="section-kicker">CHARM POINT</p><h2 class="section-title">ボクの頭には、苓北がのってる！</h2></div>
+    <div class="head-story-grid">
+      <div class="head-story-copy"><p>ボクは見ての通りイルカ！頭には、苓北町のおいしいものと海の宝物をのせているんだ。</p><p>どちらも町のみんなが大切に育てている、自慢の名物なんだよ！</p></div>
+      <div class="head-visual">
+        <div class="head-portrait"><img src="img/reihoku-chan.png" alt="頭のレタスと緋扇貝がよく見えるれいほくちゃん"></div>
+        <div class="ingredient ingredient-lettuce"><span class="ingredient-placeholder">🥬</span><div><strong>レタス</strong><small>苓北町の<br>みずみずしいレタス！</small></div></div>
+        <div class="ingredient ingredient-shell"><span class="ingredient-placeholder">🐚</span><div><strong>緋扇貝の貝殻</strong><small>きれいな色の<br>海の宝物だよ！</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="town-stories content-section" id="town">
+    <div class="section-heading"><p class="section-kicker">ABOUT REIHOKU</p><h2 class="section-title">苓北町ってどんなところ？</h2><p>海も山もあって、自然がいっぱい。町の魅力をちょっとだけ紹介するばい！</p></div>
+    <div class="story-cards">
+      <article class="story-card"><div class="story-photo photo-sea"></div><div class="story-body"><span>海</span><h3>きれいな海</h3><p>どこまでも青く続く、天草西海岸の景色。</p></div></article>
+      <article class="story-card"><div class="story-photo photo-mountain"></div><div class="story-body"><span>自然</span><h3>豊かな自然</h3><p>海のすぐそばに、緑豊かな山が広がります。</p></div></article>
+      <article class="story-card"><div class="story-photo photo-food"></div><div class="story-body"><span>食</span><h3>おいしい農産物</h3><p>温暖な気候が育てる、みずみずしい恵み。</p></div></article>
+      <article class="story-card"><div class="story-photo photo-shell"></div><div class="story-body"><span>特産</span><h3>海の幸</h3><p>色鮮やかな緋扇貝など、新鮮な海の幸も。</p></div></article>
+    </div>
+  </section>
+
+  <section class="location-section content-section" id="location">
+    <div class="location-copy"><p class="section-kicker">LOCATION</p><h2 class="section-title">苓北町は、ここにあるよ！</h2><p>熊本県の天草下島、いちばん西側にある小さな町。海と山にかこまれた、自然いっぱいの場所です。</p><a href="https://reihoku-kumamoto.jp/" target="_blank" rel="noopener noreferrer">苓北町についてもっと見る <iconify-icon icon="lucide:arrow-up-right"></iconify-icon></a></div>
+    <div class="location-map"><img src="img/reihoku_here_in _japan.png" alt="日本と熊本県内における苓北町の位置"><div class="map-comment">自然がいっぱいの<br>すてきな町だよ！</div><img class="map-character" src="img/reihoku-chan.png" alt="案内するれいほくちゃん"></div>
   </section>
 
   <div class="overlay"></div>

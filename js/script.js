@@ -37,7 +37,20 @@ const showComment = () => {
 
 const circles = document.querySelectorAll(".circle");
 
+circles.forEach(circle => {
+  circle.setAttribute("role", "button");
+  circle.setAttribute("tabindex", "0");
+  circle.setAttribute("aria-label", circle.textContent + "を開く");
+  circle.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      circle.click();
+    }
+  });
+});
+
 const overlay = document.querySelector(".overlay");
+const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
 circles.forEach(circle => {
   circle.addEventListener("click", () => {
