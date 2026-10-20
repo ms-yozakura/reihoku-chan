@@ -1,79 +1,162 @@
-let timerComment;
-
-window.onload = function () {
-  timerComment = setInterval(comment, 6000);
-}
-
-const commentList = [
-  "初めまして！<br>苓北町の魅力、も〜〜っと伝えるばい！",
+const comments = [
+  "こんにちは！苓北から来たばい！",
   "苓北町は、海も山もあって自然がいっぱい！",
-  "地元は苓北たい！<br>あたは？",
-  "頭のは海藻じゃないけん！<br>苓北のだごうまかレタスたい！",
-  "地元の人たちも優しいけん<br>温かい雰囲気が最高たい！",
-  "新鮮な海の幸に美味しいレタスやみかん！食べ物も最高ばい！",
-  "苓北には観光スポットもたくさんあるけん、ぜひ遊びに来てみらんね！"
+  "頭のは海藻じゃないけん！ 苓北のレタスたい！",
+  "新鮮な海の幸に、レタスやみかんも大好き！",
+  "ぜひ苓北に遊びに来てみらんね！",
 ];
-
-const comment = () => {
-  const el = document.getElementById("rei-comment");
-  let num = Math.floor(Math.random() * commentList.length);
-
-  // フェードアウト
-  el.classList.add("fade-out");
-
-  // 少し待ってから内容変更 → フェードイン
-  setTimeout(() => {
-    el.innerHTML = commentList[num];
-    el.classList.remove("fade-out");
-  }, 300); // CSSのtransitionと合わせる
+let commentIndex = 0;
+const comment = document.getElementById("rei-comment");
+document.querySelector(".character-button").addEventListener("click", () => {
+  commentIndex = (commentIndex + 1) % comments.length;
+  comment.textContent = comments[commentIndex];
+});
+const menu = document.querySelector(".menu-toggle");
+const nav = document.querySelector(".site-nav");
+function closeMenu() {
+  menu.setAttribute("aria-expanded", "false");
+  nav.classList.remove("is-open");
+}
+menu.addEventListener("click", () => {
+  const open = menu.getAttribute("aria-expanded") !== "true";
+  menu.setAttribute("aria-expanded", String(open));
+  nav.classList.toggle("is-open", open);
+});
+nav
+  .querySelectorAll("a")
+  .forEach((link) => link.addEventListener("click", closeMenu));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") closeMenu();
+});
+const profiles = {
+  skill: ["特技", "泳ぐこと！漁師さんのお船と競争するんだ！⛴️"],
+  like: [
+    "好きなこと",
+    "地元を回って面白い場所を探すこと、\nおいしいものを探すこと！",
+  ],
+  personality: [
+    "性格",
+    "地元の人たちの温かさや、\n苓北のおいしいものを伝えるのが大好き！",
+  ],
+  food: [
+    "好きな食べ物",
+    "苓北の新鮮なお魚が大好き！🐟\nあとはレタスにみかんに……\nおいしいものならなんでも好きなんだっ。えへへ。",
+  ],
+  dream: [
+    "将来の夢",
+    "全国に、じまんの苓北を広めること！\n虹色の貝殻を見つけること！🌈",
+  ],
+  comment: [
+    "ひとこと",
+    "苓北町には魅力がたくさんあるばい！\nボクといっしょに、見つけにいこう！",
+  ],
+};
+const dialog = document.getElementById("profile-dialog");
+let opener;
+document.querySelectorAll("[data-target]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const [title, copy] = profiles[button.dataset.target];
+    opener = button;
+    document.getElementById("dialog-title").textContent = title;
+    document.getElementById("dialog-copy").textContent = copy;
+    dialog.showModal();
+    dialog.focus({ preventScroll: true });
+    document.body.classList.add("dialog-open");
+  });
+});
+document
+  .querySelector(".dialog-close")
+  .addEventListener("click", () => dialog.close());
+dialog.addEventListener("click", (event) => {
+  const rect = dialog.getBoundingClientRect();
+  if (
+    event.clientX < rect.left ||
+    event.clientX > rect.right ||
+    event.clientY < rect.top ||
+    event.clientY > rect.bottom
+  )
+    dialog.close();
+});
+dialog.addEventListener("close", () => {
+  document.body.classList.remove("dialog-open");
+  opener?.focus({ preventScroll: true });
+});
+const sections = [...nav.querySelectorAll("a")].map((link) =>
+  document.querySelector(link.hash),
+);
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        nav.querySelectorAll("a").forEach((link) => {
+          if (link.hash === `#${entry.target.id}`)
+            link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    },
+    { rootMargin: "-15% 0px -55% 0px" },
+  );
+  sections.forEach((section) => {
+    if (section) observer.observe(section);
+  });
 }
 
-const showComment = () => {
-  clearInterval(timerComment);
-  comment();
-  timerComment = setInterval(comment, 6000);
-}
-
-
-const circles = document.querySelectorAll(".circle");
-
-circles.forEach(circle => {
-  circle.setAttribute("role", "button");
-  circle.setAttribute("tabindex", "0");
-  circle.setAttribute("aria-label", circle.textContent + "を開く");
-  circle.addEventListener("keydown", event => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault();
-      circle.click();
+// Reveal once on entry, with short staggered delays for groups of cards.
+if (
+  "IntersectionObserver" in window &&
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+) {
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.08 },
+  );
+  const targets = document.querySelectorAll(
+    ".hero-copy, .hero-character, .about-copy, .about-character, .section-heading, .charm, .profile-buttons button, .split > *, .story-cards article",
+  );
+  targets.forEach((element) => {
+    const group = element.parentElement;
+    if (group.matches(".charms, .profile-buttons, .story-cards")) {
+      const index = [...group.children].indexOf(element);
+      element.style.transitionDelay = `${(index % 3) * 70}ms`;
     }
+    element.classList.add("reveal");
+    revealObserver.observe(element);
   });
-});
+}
 
-const overlay = document.querySelector(".overlay");
-const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-
-circles.forEach(circle => {
-  circle.addEventListener("click", () => {
-    const target = circle.dataset.target;
-
-
-    document.querySelectorAll(".modal").forEach(m => {
-      m.classList.remove("active");
+const citrusCards = document.getElementById("citrus-cards");
+const citrusControls = document.querySelectorAll("[data-citrus-direction]");
+function updateCitrusControls() {
+  const end = citrusCards.scrollWidth - citrusCards.clientWidth;
+  citrusControls.forEach((button) => {
+    button.disabled =
+      Number(button.dataset.citrusDirection) < 0
+        ? citrusCards.scrollLeft <= 1
+        : citrusCards.scrollLeft >= end - 1;
+  });
+}
+citrusControls.forEach((button) =>
+  button.addEventListener("click", () => {
+    const card = citrusCards.querySelector("article");
+    const step =
+      card.getBoundingClientRect().width +
+      parseFloat(getComputedStyle(citrusCards).columnGap);
+    citrusCards.scrollBy({
+      left: step * Number(button.dataset.citrusDirection),
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "instant"
+        : "smooth",
     });
-
-    document.getElementById(target).classList.add("active");
-    overlay.classList.add("active");
-
-    document.body.style.paddingRight = scrollbarWidth + "px";
-    document.body.classList.add("no-scroll");
-  });
-});
-
-overlay.addEventListener("click", () => {
-  document.querySelectorAll(".modal").forEach(m => {
-    m.classList.remove("active");
-  });
-  overlay.classList.remove("active");
-  document.body.style.paddingRight = "";
-  document.body.classList.remove("no-scroll");
-});
+  }),
+);
+citrusCards.addEventListener("scroll", updateCitrusControls, { passive: true });
+new ResizeObserver(updateCitrusControls).observe(citrusCards);
+updateCitrusControls();
