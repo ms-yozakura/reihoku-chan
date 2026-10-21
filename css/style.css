@@ -254,6 +254,7 @@ a:hover {
   max-width: 27em;
 }
 .hero-character {
+  position: relative;
   display: grid;
   justify-items: center;
 }
@@ -322,6 +323,7 @@ a:hover {
   max-width: 900px;
 }
 .about-character {
+  position: relative;
   width: min(100%, 340px);
   justify-self: center;
 }
@@ -752,42 +754,30 @@ dialog[open]::backdrop {
   margin-top: var(--space);
 }
 .collection-heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  margin-bottom: 24px;
+  container-type: inline-size;
+  margin-bottom: 20px;
 }
-.collection-heading p,
+.collection-heading h3 {
+  font-size: clamp(14px, 4.6cqi, 22px);
+  line-height: 1.6;
+  white-space: nowrap;
+  text-wrap: nowrap;
+}
+.collection-heading p {
+  margin-top: 6px;
+  font-size: clamp(10px, 3.35cqi, 13px);
+  white-space: nowrap;
+  color: #705f4c;
+}
 .citrus-source {
   font-size: 12px;
   color: #705f4c;
 }
-.scroll-controls {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
-.scroll-controls button {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  padding: 0;
-  border: 1px solid #e5cead;
-  border-radius: 50%;
-  background: white;
-  font: 22px/1 sans-serif;
-}
-.scroll-controls button:disabled {
-  opacity: 0.35;
-  cursor: default;
-}
 .citrus-cards {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(260px, 30vw, 320px);
-  gap: 24px;
+  grid-auto-columns: clamp(240px, 27vw, 300px);
+  gap: 16px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -797,10 +787,12 @@ dialog[open]::backdrop {
   scrollbar-width: thin;
 }
 .citrus-card {
+  padding: 20px;
+  border: 1px solid #f1e3cc;
   scroll-snap-align: start;
 }
 .citrus-card h4 {
-  font-size: 23px;
+  font-size: 20px;
   color: #a95e0d;
   margin-top: 20px;
 }
@@ -821,8 +813,8 @@ dialog[open]::backdrop {
 .fruit-stage {
   display: grid;
   place-items: center;
-  height: 160px;
-  background: #fff6df;
+  height: 140px;
+  background: #fff8e9;
   border-radius: 16px;
 }
 .fruit {
@@ -890,4 +882,26 @@ dialog[open]::backdrop {
   .citrus-cards {
     scroll-behavior: auto;
   }
+}
+
+/* Shared hand-drawn accents; decoration stays clear of text. */
+.marker {
+  padding-bottom: 0.12em;
+  background: url("../img/marker.svg") left bottom / 100% 0.32em no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+.citrus,
+.town {
+  position: relative;
+}
+.citrus::before,
+.town::before {
+  content: "";
+  position: absolute;
+  inset: -30px 0 auto;
+  height: 32px;
+  background: inherit;
+  mask: url("../img/section-wave.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
 }

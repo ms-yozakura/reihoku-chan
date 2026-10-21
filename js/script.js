@@ -131,32 +131,3 @@ if (
     revealObserver.observe(element);
   });
 }
-
-const citrusCards = document.getElementById("citrus-cards");
-const citrusControls = document.querySelectorAll("[data-citrus-direction]");
-function updateCitrusControls() {
-  const end = citrusCards.scrollWidth - citrusCards.clientWidth;
-  citrusControls.forEach((button) => {
-    button.disabled =
-      Number(button.dataset.citrusDirection) < 0
-        ? citrusCards.scrollLeft <= 1
-        : citrusCards.scrollLeft >= end - 1;
-  });
-}
-citrusControls.forEach((button) =>
-  button.addEventListener("click", () => {
-    const card = citrusCards.querySelector("article");
-    const step =
-      card.getBoundingClientRect().width +
-      parseFloat(getComputedStyle(citrusCards).columnGap);
-    citrusCards.scrollBy({
-      left: step * Number(button.dataset.citrusDirection),
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
-  }),
-);
-citrusCards.addEventListener("scroll", updateCitrusControls, { passive: true });
-new ResizeObserver(updateCitrusControls).observe(citrusCards);
-updateCitrusControls();
