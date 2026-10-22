@@ -246,6 +246,11 @@ a:hover {
   letter-spacing: 0.035em;
   margin-block: 16px 24px;
 }
+
+.orange{
+  color: var(--orange);
+}
+
 .hero h1 em {
   font-style: normal;
   color: var(--orange);
