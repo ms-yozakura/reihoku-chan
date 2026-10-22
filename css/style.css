@@ -247,7 +247,7 @@ a:hover {
   margin-block: 16px 24px;
 }
 
-.orange{
+.orange {
   color: var(--orange);
 }
 
@@ -1087,4 +1087,73 @@ h4:has(ruby) {
 
 .copy-phrase {
   display: inline-block;
+}
+
+/* A compact mobile cover: three deliberate lines and a clear character silhouette. */
+@media (max-width: 640px) {
+  .header {
+    min-height: 64px;
+    padding-block: 6px;
+  }
+  .brand {
+    line-height: 1.65;
+  }
+  .menu-toggle {
+    border: 0;
+    background: transparent;
+    gap: 6px;
+  }
+  .hero {
+    background-position: 55% bottom;
+  }
+  .hero::before {
+    background: linear-gradient(
+      180deg,
+      #effafff2 0%,
+      #effaffdf 42%,
+      #effaff45 76%,
+      #effaff90 100%
+    );
+  }
+  .hero-inner {
+    padding-block: 28px 52px;
+    gap: 16px;
+  }
+  .hero h1.phrase-heading {
+    font-size: clamp(28px, 8vw, 34px);
+    line-height: 1.45;
+    letter-spacing: 0.025em;
+    margin-block: 8px 18px;
+  }
+  .hero h1 .heading-line {
+    display: contents;
+  }
+  .hero h1 .phrase {
+    display: block;
+  }
+  .hero h1 rt {
+    font-size: 10px;
+  }
+  .hero-copy .hero-description {
+    font-size: 13px;
+    line-height: 2;
+  }
+  .hero-character {
+    max-width: 270px;
+  }
+  .character-button {
+    width: 250px;
+    margin-block: -4px;
+  }
+  .hero-comment {
+    margin-top: 4px;
+    padding: 10px 16px;
+    font-size: 11px;
+    border-width: 1px;
+    border-radius: 20px;
+  }
+  .hero-comment::before {
+    border-width: 1px;
+    top: -11px;
+  }
 }
