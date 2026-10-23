@@ -50,6 +50,7 @@ const storyScenes = [
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const header = document.querySelector(".header");
   let active = -1;
+  let enhancedMode = null;
   let queued = false;
   function text(tag, className, copy) {
     const element = document.createElement(tag);
@@ -128,7 +129,9 @@ const storyScenes = [
     character.append(pose);
     const credit = text("p", "story-credit", scene.credit || "");
     credit.hidden = !scene.credit;
-    panel.append(picture, overlay, copy, character, credit);
+    const number = text("span", "story-number", `0${index + 1} / 04`);
+    number.setAttribute("aria-hidden", "true");
+    panel.append(picture, overlay, copy, character, credit, number);
     host.append(panel);
     const link = document.createElement("a");
     link.href = `#${panel.id}`;
@@ -147,6 +150,21 @@ const storyScenes = [
   const links = [...progress.children];
   function update() {
     queued = false;
+    if (root.classList.contains("is-mobile-story")) {
+      const bounds = root.getBoundingClientRect();
+      const top = header.offsetHeight;
+      root.dataset.mobileProgress = bounds.top <= top + 1 && bounds.bottom > top + 80 ? "visible" : "hidden";
+      const readingLine = top + (innerHeight - top) * 0.4;
+      const current = panels.findIndex((panel) => {
+        const rect = panel.getBoundingClientRect();
+        return rect.top <= readingLine && rect.bottom > readingLine;
+      });
+      links.forEach((link, index) => {
+        if (index === current) link.setAttribute("aria-current", "step");
+        else link.removeAttribute("aria-current");
+      });
+      return;
+    }
     if (!root.classList.contains("is-scroll-story")) return;
     const distance = root.offsetHeight - root.querySelector(".story-stage").offsetHeight;
     const offset = header.offsetHeight - root.getBoundingClientRect().top;
@@ -168,17 +186,16 @@ const storyScenes = [
   }
   function layout() {
     root.style.setProperty("--header-height", `${header.offsetHeight}px`);
-    // Portrait phones retain the story even with browser bars visible. Reduced
-    // motion disables CSS animation, not sticky positioning or scene selection.
-    const phonePortrait = matchMedia("(max-width: 640px) and (orientation: portrait)").matches;
-    const enhanced = CSS.supports("position", "sticky") &&
-      (phonePortrait || innerHeight - header.offsetHeight >= 540);
-    // Mobile browser chrome also fires resize. Keep the current scene and its
-    // animation state when only the available height changes.
-    if (root.classList.contains("is-scroll-story") === enhanced && active !== -1) {
+    // Phones read the four scenes in normal flow; desktop retains sticky mode.
+    const mobile = matchMedia("(max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px)").matches;
+    root.classList.toggle("is-mobile-story", mobile);
+    const enhanced = !mobile && CSS.supports("position", "sticky") &&
+      innerHeight - header.offsetHeight >= 540;
+    if (enhancedMode === enhanced) {
       update();
       return;
     }
+    enhancedMode = enhanced;
     root.classList.toggle("is-scroll-story", enhanced);
     active = -1;
     delete root.dataset.active;

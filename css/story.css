@@ -372,7 +372,7 @@
     margin-right: -15px;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
   .story-scene {
     grid-template-columns: 1fr;
     grid-template-rows: 1fr auto;
@@ -552,7 +552,7 @@
     font-size: 13px;
   }
 }
-@media (max-width: 640px) {
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
   .story-day {
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
@@ -615,7 +615,7 @@
 }
 .story-day .story-scene-title { font-size: min(clamp(30px, 4.1vw, 58px), calc(100cqi / var(--line-units))); }
 .story-day .story-narration { font-size: min(clamp(13px, 1.3vw, 17px), calc(100cqi / var(--line-units))); }
-@media (max-width: 640px) {
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
   .story-scene, .story-day { grid-template-columns: minmax(0, 1fr); }
   .story-copy, .character-right .story-copy { padding-inline: 4px; }
   .story-day .story-copy { padding: 0; }
@@ -630,7 +630,7 @@
 }
 
 /* Mobile: one continuous landscape, with content placed around the view. */
-@media (max-width: 640px) {
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
   .story-scene, .story-day, .is-scroll-story .story-scene {
     display: block;
     padding: 0;
@@ -725,6 +725,43 @@
 /* Clip only at the end of the whole story, not at the visible Safari viewport. */
 .kamishibai { overflow: clip; isolation: isolate; }
 .header { padding-top: calc(8px + env(safe-area-inset-top, 0px)); }
-@media (max-width: 640px) {
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
   .header { padding-top: calc(6px + env(safe-area-inset-top, 0px)); }
+}
+
+/* Mobile reads as four ordinary pages: no sticky/fixed frame or scroll switching. */
+.story-number { display: none; }
+.is-mobile-story { height: auto; overflow: visible; }
+.is-mobile-story .story-stage { position: relative; height: auto; overflow: visible; }
+.is-mobile-story #story-scenes { position: static; height: auto; }
+.is-mobile-story .story-scene {
+  position: relative; inset: auto; min-height: 0;
+  height: calc(100svh - var(--header-height) - env(safe-area-inset-bottom, 0px));
+  opacity: 1; visibility: visible; scroll-margin-top: var(--header-height);
+}
+.is-mobile-story .story-photo,
+.is-mobile-story .story-overlay { height: 100%; }
+.is-mobile-story .story-number {
+  display: block; position: absolute; top: 24px; right: 20px;
+  color: var(--navy); font-size: 11px; font-weight: 800; letter-spacing: .1em;
+  padding: 5px 10px; border-radius: 20px; background: #ffffffe6;
+}
+.is-mobile-story .story-bottom { position: relative; inset: auto; height: auto; padding: 4px 20px 32px; }
+.is-mobile-story .story-progress { display: none; }
+.is-mobile-story .story-skip { margin: 0; }
+
+/* Mobile progress tracks ordinary scrolling without pinning the scenes. */
+.is-mobile-story .story-number { display: none; }
+.is-mobile-story .story-progress {
+  display: flex; position: fixed; top: calc(var(--header-height) + 22px);
+  right: max(12px, env(safe-area-inset-right)); flex-direction: column;
+  gap: 10px; z-index: 10;
+}
+.is-mobile-story .story-progress a { width: 36px; height: 36px; font-size: 11px; }
+.is-mobile-story .story-progress::before {
+  content: ""; position: absolute; top: 10px; bottom: 10px; left: 17px;
+  width: 2px; background: #ffffffcc;
+}
+.is-mobile-story:not([data-mobile-progress="visible"]) .story-progress {
+  visibility: hidden; pointer-events: none;
 }
