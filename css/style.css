@@ -457,6 +457,9 @@ a:hover {
   place-content: center;
   gap: 8px;
   aspect-ratio: 1;
+  width: 100%;
+  min-width: 0;
+  white-space: nowrap;
   padding: 12px 4px;
   border: 1px dashed var(--accent);
   border-radius: 50%;
@@ -1155,5 +1158,13 @@ h4:has(ruby) {
   .hero-comment::before {
     border-width: 1px;
     top: -11px;
+  }
+}
+
+/* Give the longest profile label room while keeping every button circular. */
+@media (max-width: 420px) {
+  .profile-buttons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 }

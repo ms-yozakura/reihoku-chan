@@ -22,19 +22,6 @@ function setReadableText(element, text) {
     element.append(ruby);
   });
 }
-const comments = [
-  "こんにちは！苓北からきたばい！",
-  "苓北町は、海も山もあって、たのしいよ！",
-  "あたまのふさふさは、おいしいレタスたい！",
-  "おさかなも、レタスも、みかんも、だいすき！",
-  "みんなで、苓北にあそびにきてみらんね！",
-];
-let commentIndex = 0;
-const comment = document.getElementById("rei-comment");
-document.querySelector(".character-button").addEventListener("click", () => {
-  commentIndex = (commentIndex + 1) % comments.length;
-  setReadableText(comment, comments[commentIndex]);
-});
 const menu = document.querySelector(".menu-toggle");
 const nav = document.querySelector(".site-nav");
 function closeMenu() {

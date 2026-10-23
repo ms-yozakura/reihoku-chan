@@ -1,0 +1,692 @@
+/* Four discoveries on a walk, with narration directly over the scenery. */
+.kamishibai {
+  --header-height: 76px;
+  background: var(--pale);
+}
+.story-stage {
+  position: relative;
+  isolation: isolate;
+}
+.story-heading,
+.story-scene-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.story-scene {
+  position: relative;
+  isolation: isolate;
+  min-height: 650px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(40px, 9vw, 150px);
+  padding: 68px max(84px, calc((100% - 1120px) / 2)) 120px;
+  background: #d4eff7;
+}
+.story-photo,
+.story-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+}
+.story-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--photo-position);
+}
+.story-overlay {
+  z-index: -1;
+  background:
+    linear-gradient(0deg, #effaffb8, transparent 24%),
+    linear-gradient(180deg, #167ba812, transparent 45%);
+}
+.story-sunset {
+  background: #d9bbc9;
+}
+.story-sunset .story-overlay {
+  background:
+    linear-gradient(0deg, #1b335e55, transparent 55%),
+    linear-gradient(115deg, #f7a75955, #8b78ab44);
+}
+.story-copy {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  position: relative;
+  padding: clamp(26px, 3vw, 48px);
+  width: max-content;
+  max-width: 100%;
+  transform: rotate(-3deg);
+}
+.story-narration {
+  font-weight: 800;
+  font-size: clamp(18px, 1.9vw, 27px);
+  line-height: 2;
+  letter-spacing: 0.09em;
+  white-space: pre-line;
+  overflow-wrap: normal;
+  line-break: strict;
+}
+.story-emphasis {
+  color: var(--orange);
+}
+.story-character {
+  grid-column: 1;
+  grid-row: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-self: start;
+  align-self: end;
+  width: min(100%, 400px);
+}
+.story-character img {
+  width: min(100%, 360px);
+  filter: drop-shadow(0 12px 12px #10477a18);
+}
+.story-speech {
+  background: #fffefb;
+  border-radius: 46% 50% 45% 40% / 43% 46% 48% 44%;
+  box-shadow: 0 4px 20px #10477a0d;
+  position: relative;
+  z-index: 1;
+  align-self: end;
+  margin-right: -20px;
+  margin-bottom: 12px;
+  padding: 24px 30px;
+  font-weight: 800;
+  font-size: clamp(16px, 1.7vw, 24px);
+  line-height: 1.8;
+  white-space: pre-line;
+  text-align: center;
+  transform: rotate(-7deg);
+}
+.story-speech::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 30%;
+  width: 24px;
+  height: 28px;
+  background: #fffefb;
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+/* A thin white edge keeps the lettering legible over leaves, sea and stone. */
+.story-narration {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px white;
+  text-shadow: 0 1px 3px #ffffffb3;
+}
+.story-narration .story-emphasis {
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px white;
+}
+.story-day .story-narration {
+  -webkit-text-stroke: 0;
+  text-shadow: none;
+}
+.story-day .story-narration .story-emphasis {
+  -webkit-text-stroke: 0;
+}
+.character-right .story-copy {
+  grid-column: 1;
+  transform: rotate(2deg);
+}
+.character-right .story-character {
+  grid-column: 2;
+  justify-self: end;
+}
+.story-citrus .story-speech {
+  align-self: start;
+  margin-left: -20px;
+  margin-right: 0;
+  color: #ce6500;
+}
+.story-nature .story-character {
+  width: min(100%, 330px);
+}
+.story-nature .story-speech {
+  margin-right: -50px;
+  color: #ce6500;
+}
+.story-sunset .story-character {
+  width: min(100%, 290px);
+}
+.story-sunset .story-speech {
+  font-size: clamp(15px, 1.5vw, 21px);
+}
+.story-sunset .story-copy {
+  align-self: center;
+}
+.story-credit {
+  position: absolute;
+  bottom: 18px;
+  left: 20px;
+  font-size: 10px;
+  background: #ffffffdd;
+  border-radius: 12px;
+  padding: 2px 10px;
+  color: #466174;
+}
+.story-bottom {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  background: var(--pale);
+}
+.story-progress {
+  display: flex;
+  gap: 14px;
+}
+.story-progress a {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid white;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 1px 8px #10477a20;
+}
+.story-progress a[aria-current] {
+  background: var(--navy);
+  color: #fff;
+}
+.story-skip {
+  padding: 12px 28px;
+  border-radius: 40px;
+  background: #fffdf5;
+  color: var(--navy);
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 4px 16px #10477a15;
+}
+.story-hint {
+  display: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--navy);
+}
+.story-fallback h3 {
+  margin-top: 24px;
+}
+.story-stage:has(#story-scenes:empty) {
+  display: none;
+}
+.is-scroll-story {
+  height: calc((100svh - var(--header-height)) * 3.25);
+}
+.is-scroll-story .story-stage {
+  position: sticky;
+  top: var(--header-height);
+  height: calc(100svh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
+  overflow: hidden;
+}
+.is-scroll-story #story-scenes {
+  position: absolute;
+  inset: 0;
+}
+.is-scroll-story .story-scene {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.7s ease,
+    visibility 0.7s;
+}
+.is-scroll-story .story-scene.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+.is-scroll-story .story-copy {
+  opacity: 0;
+  translate: 0 10px;
+  transition:
+    opacity 0.6s ease,
+    translate 0.6s ease;
+}
+.is-scroll-story .is-active .story-copy {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0.22s;
+}
+.is-scroll-story .story-speech {
+  opacity: 0;
+  translate: 0 8px;
+  transition:
+    opacity 0.5s ease,
+    translate 0.5s ease;
+}
+.is-scroll-story .is-active .story-speech {
+  opacity: 1;
+  translate: 0 0;
+  transition-delay: 0.12s;
+}
+.is-scroll-story .story-character {
+  translate: -45px 12px;
+  transition: translate 0.8s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+.is-scroll-story .character-right .story-character {
+  translate: 45px 12px;
+}
+.is-scroll-story .story-nature .story-character {
+  translate: -20px 35px;
+}
+.is-scroll-story .story-sunset .story-character {
+  translate: -10px 8px;
+}
+.is-scroll-story .is-active .story-character {
+  translate: 0 0;
+}
+.is-scroll-story .story-sunset.is-active .story-character img {
+  animation: sunset-breathe 5s ease-in-out infinite;
+}
+.is-scroll-story .story-bottom {
+  position: absolute;
+  inset: 0;
+  background: none;
+  padding: 0;
+  pointer-events: none;
+}
+.is-scroll-story .story-bottom a {
+  pointer-events: auto;
+}
+.is-scroll-story .story-progress {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 26px;
+}
+.is-scroll-story .story-progress::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 21px;
+  width: 2px;
+  background: #ffffffcc;
+}
+.is-scroll-story .story-skip,
+.is-scroll-story .story-hint {
+  position: absolute;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+.is-scroll-story .story-hint {
+  display: block;
+  padding: 8px 18px;
+  border-radius: 24px;
+  background: #ffffffeb;
+}
+.is-scroll-story:not([data-active="sunset"]) .story-skip {
+  visibility: hidden;
+}
+.is-scroll-story[data-active="sunset"] .story-hint {
+  display: none;
+}
+@keyframes sunset-breathe {
+  50% {
+    transform: translateY(-4px);
+  }
+}
+@media (max-width: 960px) and (min-width: 641px) {
+  .story-scene {
+    padding-inline: 36px 86px;
+    gap: 32px;
+  }
+  .story-narration {
+    font-size: 18px;
+    letter-spacing: 0.04em;
+  }
+  .story-copy {
+    padding: 28px;
+  }
+  .story-speech {
+    font-size: 16px;
+    padding: 20px;
+  }
+  .story-nature .story-speech {
+    margin-right: -15px;
+  }
+}
+@media (max-width: 640px) {
+  .story-scene {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    align-content: end;
+    gap: 16px;
+    padding: 48px 26px 110px;
+    min-height: 720px;
+  }
+  .story-photo img {
+    object-position: var(--photo-position-mobile);
+  }
+  .story-overlay {
+    background: linear-gradient(0deg, #effaffbb, transparent 60%);
+  }
+  .story-character,
+  .character-right .story-character {
+    grid-column: 1;
+    grid-row: 1;
+    width: min(75%, 260px);
+    justify-self: start;
+    align-self: end;
+  }
+  .character-right .story-character {
+    justify-self: end;
+  }
+  .story-nature .story-character {
+    width: min(70%, 235px);
+  }
+  .story-sunset .story-character {
+    width: min(65%, 215px);
+  }
+  .story-character img {
+    width: min(100%, 210px);
+    max-height: 24dvh;
+    object-fit: contain;
+  }
+  .story-speech,
+  .story-sunset .story-speech {
+    padding: 14px 22px;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .story-nature .story-speech {
+    margin-right: -25px;
+  }
+  .story-copy,
+  .character-right .story-copy {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 22px 30px;
+    max-width: 100%;
+    justify-self: center;
+    align-self: start;
+    transform: rotate(-2deg);
+  }
+  .story-narration {
+    font-size: clamp(14px, 4.1vw, 17px);
+    line-height: 1.9;
+    letter-spacing: 0.04em;
+  }
+  .story-credit {
+    top: 12px;
+    bottom: auto;
+    left: 12px;
+    font-size: 9px;
+  }
+  .story-progress {
+    gap: 10px;
+  }
+  .story-skip {
+    font-size: 12px;
+    padding: 12px 22px;
+  }
+  .is-scroll-story .story-scene {
+    min-height: 0;
+    padding-bottom: 112px;
+  }
+  .is-scroll-story .story-progress {
+    top: auto;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    flex-direction: row;
+    gap: 12px;
+  }
+  .is-scroll-story .story-progress::before {
+    top: 21px;
+    bottom: auto;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: 2px;
+  }
+  .is-scroll-story .story-hint,
+  .is-scroll-story .story-skip {
+    bottom: 74px;
+    padding-block: 7px;
+    font-size: 11px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-scene,
+  .story-copy,
+  .story-speech,
+  .story-character,
+  .story-character img {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* The opening scene is the book cover; the following scenes are its pages. */
+.story-day {
+  background: #eef8fa;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(24px, 5vw, 80px);
+}
+.story-day .story-photo {
+  opacity: 1;
+}
+.story-day .story-overlay {
+  background:
+    linear-gradient(90deg, #f5faf9d9 0%, #f5faf980 38%, transparent 72%),
+    linear-gradient(0deg, #effaff99, transparent 32%);
+}
+.story-day .story-copy {
+  background: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding: 0;
+  transform: none;
+  width: 100%;
+}
+.story-cover-eyebrow {
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin-bottom: 22px;
+}
+.story-day .story-scene-title {
+  position: static;
+  clip-path: none;
+  overflow: visible;
+  width: auto;
+  height: auto;
+  margin: 0 0 24px;
+  white-space: pre-line;
+  font-size: clamp(30px, 4.1vw, 58px);
+  line-height: 1.6;
+  letter-spacing: 0.025em;
+  text-wrap: initial;
+}
+.story-day .story-narration {
+  font-size: clamp(13px, 1.3vw, 17px);
+  line-height: 2.2;
+  letter-spacing: 0.025em;
+  font-weight: 500;
+}
+.story-day .story-character {
+  align-self: center;
+  width: min(100%, 330px);
+}
+.story-day .story-speech {
+  font-size: clamp(14px, 1.4vw, 19px);
+  padding: 20px 26px;
+  margin: 0 0 10px;
+  align-self: center;
+}
+@media (max-width: 960px) and (min-width: 641px) {
+  .story-day .story-scene-title {
+    font-size: clamp(27px, 4vw, 38px);
+  }
+  .story-day .story-narration {
+    font-size: 13px;
+  }
+}
+@media (max-width: 640px) {
+  .story-day {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 20px;
+    padding-top: 32px;
+  }
+  .story-day .story-overlay {
+    background: linear-gradient(
+      180deg,
+      #f5faf9fa 5%,
+      #f5faf9dc 32%,
+      #f5faf945 68%,
+      #effaffeb
+    );
+  }
+  .story-day .story-copy {
+    grid-row: 1;
+    text-align: center;
+    align-self: start;
+  }
+  .story-cover-eyebrow {
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+  .story-day .story-scene-title {
+    font-size: clamp(28px, 8vw, 36px);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+  .story-day .story-narration {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .story-day .story-character {
+    grid-row: 2;
+    justify-self: center;
+    align-self: center;
+    width: min(70%, 240px);
+  }
+  .story-day .story-speech {
+    font-size: 13px;
+    padding: 12px 22px;
+    line-height: 1.6;
+  }
+  .story-day .story-character img {
+    max-height: 23dvh;
+  }
+}
+
+/* Size each authored line against its actual column, including narrow phones. */
+.story-scene { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.story-day { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+.story-copy { container-type: inline-size; width: 100%; min-width: 0; }
+.story-character { container-type: inline-size; min-width: 0; }
+.story-line { display: block; white-space: nowrap; }
+.story-narration { font-size: min(clamp(18px, 1.9vw, 27px), calc(100cqi / var(--line-units))); }
+.story-speech, .story-sunset .story-speech, .story-day .story-speech {
+  max-width: 100%;
+  font-size: min(clamp(14px, 1.7vw, 24px), calc((100cqi - 60px) / var(--line-units)));
+}
+.story-day .story-scene-title { font-size: min(clamp(30px, 4.1vw, 58px), calc(100cqi / var(--line-units))); }
+.story-day .story-narration { font-size: min(clamp(13px, 1.3vw, 17px), calc(100cqi / var(--line-units))); }
+@media (max-width: 640px) {
+  .story-scene, .story-day { grid-template-columns: minmax(0, 1fr); }
+  .story-copy, .character-right .story-copy { padding-inline: 4px; }
+  .story-day .story-copy { padding: 0; }
+  .story-narration { font-size: min(17px, calc(100cqi / var(--line-units))); }
+  .story-day .story-scene-title { font-size: min(36px, calc(100cqi / var(--line-units))); }
+  .story-day .story-narration { font-size: min(13px, calc(100cqi / var(--line-units))); }
+  .story-speech, .story-sunset .story-speech, .story-day .story-speech {
+    font-size: min(15px, calc((100cqi - 44px) / var(--line-units)));
+  }
+  .story-cover-eyebrow { font-size: 10px;
+    text-wrap: balance; }
+}
+
+/* Mobile: one continuous landscape, with content placed around the view. */
+@media (max-width: 640px) {
+  .story-scene, .story-day, .is-scroll-story .story-scene {
+    display: block;
+    padding: 0;
+    min-height: 720px;
+  }
+  .is-scroll-story .story-scene { min-height: 0; }
+  .story-photo, .story-day .story-photo { inset: 0; height: 100%; opacity: 1; }
+  .story-overlay, .story-day .story-overlay, .story-sunset .story-overlay {
+    inset: 0; height: 100%;
+    background: linear-gradient(0deg, #effaffed, #effaffaa 14%, transparent 40%);
+  }
+  .story-day .story-overlay {
+    background: linear-gradient(180deg, #f5faf9ba, transparent 40%), linear-gradient(0deg, #effaffed, transparent 34%);
+  }
+  .story-copy, .character-right .story-copy, .story-day .story-copy {
+    position: absolute; inset-inline: 24px; bottom: 72px;
+    width: calc(100% - 48px); padding: 0; text-align: left; transform: none;
+  }
+  .story-narration { font-size: min(16px, calc(100cqi / var(--line-units))); line-height: 1.8; }
+  .story-day .story-copy { top: 28px; bottom: auto; inset-inline: 24px 64px; }
+  .story-day .story-scene-title { font-size: min(30px, calc(100cqi / var(--line-units))); line-height: 1.5; margin-bottom: 0; text-shadow: 0 1px 6px #ffffffb3; }
+  .story-cover-eyebrow { margin-bottom: 10px; font-size: 10px; }
+  .story-day .story-copy { display: contents; container-type: normal; }
+  .story-day .story-cover-eyebrow { position: absolute; top: 28px; left: 24px; right: 64px; }
+  .story-day .story-scene-title {
+    position: absolute; top: 58px; left: 24px; right: 64px;
+    font-size: min(30px, calc((100vw - 103px) / var(--line-units)));
+  }
+  .story-day .story-narration {
+    position: absolute; left: 24px; right: 24px; bottom: 72px;
+    font-size: min(13px, calc((100vw - 63px) / var(--line-units)));
+    line-height: 1.9; text-shadow: 0 1px 4px white;
+  }
+  .story-character, .character-right .story-character, .story-day .story-character,
+  .story-nature .story-character, .story-sunset .story-character {
+    position: absolute; left: 20px; right: auto; bottom: calc(80px + 7.5em);
+    width: min(48%, 180px); align-items: center; flex-direction: column;
+  }
+  .story-day .story-character { bottom: calc(80px + 3.8em); }
+  .story-citrus .story-character { left: auto; right: 22px; }
+  .story-nature .story-character { left: 12px; width: min(44%, 165px); }
+  .story-sunset .story-character { left: 18px; width: min(43%, 160px); }
+  .story-character img, .story-day .story-character img { width: 100%; height: auto; max-height: 23dvh; object-fit: contain; }
+  .story-speech, .story-day .story-speech, .story-sunset .story-speech,
+  .story-nature .story-speech, .story-citrus .story-speech {
+    font-size: 12px; line-height: 1.6; padding: 12px 16px; margin: 0 0 10px;
+    align-self: center; transform: rotate(-4deg); max-width: none;
+  }
+  .story-speech::after { right: auto; left: 40%; top: auto; bottom: -12px; width: 20px; height: 20px; clip-path: polygon(0 0, 100% 0, 0 100%); }
+  .is-scroll-story .story-progress {
+    top: 22px; bottom: auto; right: 12px; left: auto; transform: none;
+    flex-direction: column; gap: 10px;
+  }
+  .is-scroll-story .story-progress a { width: 36px; height: 36px; font-size: 11px; }
+  .is-scroll-story .story-progress::before { top: 10px; bottom: 10px; left: 17px; right: auto; width: 2px; height: auto; }
+  .is-scroll-story .story-hint, .is-scroll-story .story-skip { bottom: max(16px, env(safe-area-inset-bottom)); }
+}

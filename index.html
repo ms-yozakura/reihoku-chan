@@ -10,8 +10,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&display=swap"
     rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=20261023-profile" />
+  <link rel="stylesheet" href="css/story.css?v=20261023-landscape2" />
   <script src="https://code.iconify.design/iconify-icon/3.0.0/iconify-icon.min.js" defer></script>
+  <script src="js/story.js?v=20261023-landscape2" defer></script>
   <script src="js/script.js" defer></script>
 </head>
 
@@ -36,49 +38,23 @@
     </nav>
   </header>
   <main id="main">
-    <section class="hero" id="top">
-      <div class="hero-inner wrap">
-        <div class="hero-copy">
-          <!--
-            <p class="intro-note">
-              ようこそ、<ruby>熊本<rp>（</rp><rt>くまもと</rt><rp>）</rp></ruby
-              >・<ruby>天草<rp>（</rp><rt>あまくさ</rt><rp>）</rp></ruby>の<ruby
-                >苓北町<rp>（</rp><rt>れいほくまち</rt><rp>）</rp></ruby
-              >へ！
-            </p>
-            -->
-          <h1 class="phrase-heading">
-            <span class="heading-line"><span class="phrase"><ruby>海<rp>（</rp>
-                  <rt>うみ</rt>
-                  <rp>）</rp>
-                </ruby>と、</span><span class="phrase"><em>おいしい</em>と、</span></span><span class="heading-line"><span
-                class="phrase">れいほくちゃん。</span></span>
-          </h1>
-          <p class="hero-description">
-            <span class="copy-phrase">きれいな
-              <ruby>海<rp>（</rp>
-                <rt>うみ</rt>
-                <rp>）</rp>
-              </ruby>と、</span><span class="copy-phrase">おいしいみかん。</span><br /><span
-              class="copy-phrase">いっしょに、</span><span class="copy-phrase">れいほくをたんけんしよう！</span>
-          </p>
-        </div>
-        <div class="hero-character">
-          <button class="character-button" aria-label="れいほくちゃんのおしゃべりを聞く">
-            <img src="img/reihoku-chan.png?v=fd42ce058e" alt="レタスと緋扇貝を頭にのせたイルカ、れいほくちゃん" width="1024" height="1024" />
-          </button>
-          <p id="rei-comment" class="hero-comment" aria-live="polite">
-            こんにちは！<ruby>苓北<rp>（</rp>
-              <rt>れいほく</rt>
-              <rp>）</rp>
-            </ruby>からきたばい！
-          </p>
+    <section class="kamishibai" id="top" aria-labelledby="story-title">
+      <div class="story-stage">
+        <h1 id="story-title" class="story-heading">海と、おいしいと、れいほくちゃん。</h1>
+        <div id="story-scenes"></div>
+        <div class="story-bottom">
+          <nav class="story-progress" aria-label="紙芝居の場面"></nav>
+          <a class="story-skip" href="#profile">もっと苓北町を知ってみよう！ ↓</a>
+          <p class="story-hint">れいほくちゃんと、おさんぽしよう ↓</p>
         </div>
       </div>
-      <svg class="wave" viewBox="0 0 2880 100" preserveAspectRatio="none" aria-hidden="true">
-        <path class="wave-back" d="M0 40Q180 8 360 40T720 40T1080 40T1440 40T1800 40T2160 40T2520 40T2880 40V100H0Z" />
-        <path d="M0 55Q180 23 360 55T720 55T1080 55T1440 55T1800 55T2160 55T2520 55T2880 55V100H0Z" />
-      </svg>
+      <noscript><div class="wrap section story-fallback">
+        <h2>れいほくちゃんと、まちをたんけん</h2>
+        <h3>① 海と、みかんと、れいほくちゃん。</h3><p>「ボクのまち、いっしょに歩こう！」海にかこまれた、やさしいまち。ボクのふるさとを、あんないするね。</p>
+        <h3>② おいしいみかん、みつけた！</h3><p>「みかん、だいすき！」あたたかな日ざしと海からのかぜで、おいしいみかんがそだっているよ！</p>
+        <h3>③ 海も、山も、まちも</h3><p>「わぁ！ いいながめ！」海を見わたせる、高いところ。海も、山も、みどりも、まちも、ぜんぶつながってとってもきれいなんだ！</p>
+        <h3>④ このまちを、もっと知ってほしいな</h3><p>「きらきらしてるね！」夕方になると、海も空もオレンジ色に。こんなすてきなけしきも、ボクのまちのたからもの。</p>
+      </div></noscript>
     </section>
     <section class="section about section-blue" id="profile">
       <div class="wrap about-grid">
