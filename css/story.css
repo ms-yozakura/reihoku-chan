@@ -765,3 +765,32 @@
 .is-mobile-story:not([data-mobile-progress="visible"]) .story-progress {
   visibility: hidden; pointer-events: none;
 }
+
+/* Carousel experiment: native horizontal scrolling; vertical page scroll stays free. */
+.story-carousel-status { display: none; }
+.is-mobile-story { --mobile-scene-height: calc(100svh - var(--header-height) - env(safe-area-inset-bottom, 0px)); }
+.is-mobile-story #story-scenes {
+  display: flex; overflow-x: auto; overflow-y: hidden;
+  scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.is-mobile-story #story-scenes::-webkit-scrollbar { display: none; }
+.is-mobile-story #story-scenes:focus-visible { outline-offset: -4px; }
+.is-mobile-story .story-scene { flex: 0 0 100%; width: 100%; min-width: 0; scroll-snap-align: start; }
+.is-mobile-story .story-stage { position: relative; }
+.is-mobile-story .story-bottom { position: static; padding: 16px 20px 28px; }
+.is-mobile-story .story-progress {
+  position: absolute; top: calc(var(--mobile-scene-height) - 56px); bottom: auto; left: 50%; right: auto;
+  transform: translateX(-50%); flex-direction: row; justify-content: center; gap: 16px;
+  visibility: visible; pointer-events: auto;
+}
+.is-mobile-story:not([data-mobile-progress="visible"]) .story-progress { visibility: visible; pointer-events: auto; }
+.is-mobile-story .story-progress::before { display: none; }
+.is-mobile-story .story-carousel-status {
+  display: block; position: absolute; width: 1px; height: 1px;
+  clip-path: inset(50%); overflow: hidden; white-space: nowrap;
+}
+/* Compact dots with a larger invisible touch target. */
+.is-mobile-story .story-progress { height: 44px; align-items: center; }
+.is-mobile-story .story-progress a { width: 28px; height: 28px; font-size: 10px; border-width: 1px; }
+.is-mobile-story .story-progress a::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }

@@ -138,6 +138,11 @@ const storyScenes = [
     link.textContent = `0${index + 1}`;
     link.setAttribute("aria-label", `${index + 1}：${scene.title}`);
     link.addEventListener("click", (event) => {
+      if (root.classList.contains("is-mobile-story")) {
+        event.preventDefault();
+        goToScene(index);
+        return;
+      }
       if (!root.classList.contains("is-scroll-story")) return;
       event.preventDefault();
       const distance = root.offsetHeight - root.querySelector(".story-stage").offsetHeight;
@@ -148,21 +153,40 @@ const storyScenes = [
     return panel;
   });
   const links = [...progress.children];
+  const status = text("p", "story-carousel-status", "");
+  status.setAttribute("role", "status");
+  status.setAttribute("aria-live", "polite");
+  root.querySelector(".story-bottom").append(status);
+  let carouselIndex = 0;
+  let carouselWidth = 0;
+  function goToScene(index, instant = false) {
+    const bounded = Math.max(0, Math.min(storyScenes.length - 1, index));
+    host.scrollTo({ left: bounded * host.clientWidth, behavior: instant || motion.matches ? "instant" : "smooth" });
+  }
+  host.addEventListener("scroll", schedule, { passive: true });
+  host.addEventListener("keydown", (event) => {
+    if (!root.classList.contains("is-mobile-story")) return;
+    if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+      event.preventDefault();
+      goToScene(carouselIndex + (event.key === "ArrowRight" ? 1 : -1));
+    }
+  });
   function update() {
     queued = false;
     if (root.classList.contains("is-mobile-story")) {
-      const bounds = root.getBoundingClientRect();
-      const top = header.offsetHeight;
-      root.dataset.mobileProgress = bounds.top <= top + 1 && bounds.bottom > top + 80 ? "visible" : "hidden";
-      const readingLine = top + (innerHeight - top) * 0.4;
-      const current = panels.findIndex((panel) => {
-        const rect = panel.getBoundingClientRect();
-        return rect.top <= readingLine && rect.bottom > readingLine;
-      });
+      carouselIndex = Math.max(0, Math.min(storyScenes.length - 1,
+        Math.round(host.scrollLeft / Math.max(1, host.clientWidth))));
+      root.dataset.carouselIndex = String(carouselIndex);
       links.forEach((link, index) => {
-        if (index === current) link.setAttribute("aria-current", "step");
+        if (index === carouselIndex) link.setAttribute("aria-current", "step");
         else link.removeAttribute("aria-current");
       });
+      panels.forEach((panel, index) => {
+        panel.inert = index !== carouselIndex;
+        panel.setAttribute("aria-hidden", String(index !== carouselIndex));
+      });
+      const announcement = `${carouselIndex + 1} / ${storyScenes.length}：${storyScenes[carouselIndex].title.replaceAll("\n", "")}`;
+      if (status.textContent !== announcement) status.textContent = announcement;
       return;
     }
     if (!root.classList.contains("is-scroll-story")) return;
@@ -189,6 +213,19 @@ const storyScenes = [
     // Phones read the four scenes in normal flow; desktop retains sticky mode.
     const mobile = matchMedia("(max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px)").matches;
     root.classList.toggle("is-mobile-story", mobile);
+    if (mobile) {
+      host.setAttribute("tabindex", "0");
+      host.setAttribute("role", "region");
+      host.setAttribute("aria-label", "れいほくちゃんの4つのおはなし");
+      host.setAttribute("aria-roledescription", "カルーセル");
+      if (carouselWidth !== host.clientWidth) {
+        carouselWidth = host.clientWidth;
+        goToScene(carouselIndex, true);
+      }
+    } else {
+      ["tabindex", "role", "aria-label", "aria-roledescription"].forEach((attribute) => host.removeAttribute(attribute));
+      carouselWidth = 0;
+    }
     const enhanced = !mobile && CSS.supports("position", "sticky") &&
       innerHeight - header.offsetHeight >= 540;
     if (enhancedMode === enhanced) {
