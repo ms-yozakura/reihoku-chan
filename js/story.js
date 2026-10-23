@@ -139,7 +139,7 @@ const storyScenes = [
       event.preventDefault();
       const distance = root.offsetHeight - root.querySelector(".story-stage").offsetHeight;
       const top = scrollY + root.getBoundingClientRect().top - header.offsetHeight;
-      scrollTo({ top: top + distance * (index * 2 + 0.08), behavior: "auto" });
+      scrollTo({ top: top + distance * (index / storyScenes.length + 0.08), behavior: "instant" });
     });
     progress.append(link);
     return panel;
@@ -167,8 +167,17 @@ const storyScenes = [
   }
   function layout() {
     root.style.setProperty("--header-height", `${header.offsetHeight}px`);
-    // Short landscape windows use normal document flow so text never gets clipped.
-    const enhanced = !motion.matches && innerHeight - header.offsetHeight >= 540;
+    // Portrait phones retain the story even with browser bars visible. Reduced
+    // motion disables CSS animation, not sticky positioning or scene selection.
+    const phonePortrait = matchMedia("(max-width: 640px) and (orientation: portrait)").matches;
+    const enhanced = CSS.supports("position", "sticky") &&
+      (phonePortrait || innerHeight - header.offsetHeight >= 540);
+    // Mobile browser chrome also fires resize. Keep the current scene and its
+    // animation state when only the available height changes.
+    if (root.classList.contains("is-scroll-story") === enhanced && active !== -1) {
+      update();
+      return;
+    }
     root.classList.toggle("is-scroll-story", enhanced);
     active = -1;
     delete root.dataset.active;
