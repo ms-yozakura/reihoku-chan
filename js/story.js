@@ -149,7 +149,8 @@ const storyScenes = [
     queued = false;
     if (!root.classList.contains("is-scroll-story")) return;
     const distance = root.offsetHeight - root.querySelector(".story-stage").offsetHeight;
-    const position = (header.offsetHeight - root.getBoundingClientRect().top) / distance;
+    const offset = header.offsetHeight - root.getBoundingClientRect().top;
+    const position = offset / distance;
     const next = Math.min(3, Math.max(0, Math.floor(position * 4)));
     if (next === active) return;
     active = next;
