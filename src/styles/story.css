@@ -975,3 +975,23 @@
   .story-day .story-cover-actions { margin-top: 20px; }
   .story-scene.story-day .story-character { grid-row: 2; justify-self: center; width: min(50%, 180px); }
 }
+
+/* On phones, the cover ends with two stacked choices after the character. */
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .story-scene.story-day {
+    container-type: inline-size;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    gap: 12px;
+  }
+  .story-scene.story-day .story-copy { display: contents; }
+  .story-day .story-cover-eyebrow { grid-row: 1; grid-column: 1; margin: 0; }
+  .story-day .story-scene-title { grid-row: 2; grid-column: 1; margin: 0; }
+  .story-scene.story-day .story-character { grid-row: 3; grid-column: 1; align-self: center; }
+  .story-day .story-narration { grid-row: 4; grid-column: 1; margin: 0; }
+  .story-day .story-cover-actions {
+    grid-row: 5; grid-column: 1;
+    display: flex; flex-direction: column; gap: 10px; margin: 4px 0 0;
+  }
+  .story-cover-actions .story-cover-action { flex: none; width: 100%; }
+  .story-cover-action-secondary { order: -1; }
+}
