@@ -7,8 +7,8 @@ export const storyScenes = [
     imageAlt: "お城から海と町を眺めるAI生成イメージ",
     placeholder: false, character: "/img/raise_right.PNG", characterAlt: "右のひれを上げて迎えるれいほくちゃん",
     speech: "はじめまして！\nれいほくちゃんだよ！",
-    narration: "海にかこまれた、やさしいまち。\nボクのふるさとを、あんないするね。",
-    emphasis: ["おいしい", "ふるさと"],
+    narration: "海にかこまれた、やさしいまち。\nボクのふるさとを、あんないするね。\n ※紙芝居形式のトップを採用しているが、長すぎ、見にくい、などあれば改善の余地あり？",
+    emphasis: ["おいしい", "ふるさと", "※紙芝居形式のトップを採用しているが、長すぎ、見にくい、などあれば改善の余地あり？"],
   },
   {
     id: "location", title: "れいほく町は、ここ！", location: "熊本県・天草の苓北町", theme: "map", side: "left",

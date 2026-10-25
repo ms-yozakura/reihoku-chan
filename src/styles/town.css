@@ -42,3 +42,7 @@
   bottom: 0;
   width: 110px;
 }
+
+/* Keep the place name and its particle together, including native ruby layout. */
+.location-heading { text-wrap: wrap; }
+.location-heading-line { display: block; white-space: nowrap; }

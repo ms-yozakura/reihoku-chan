@@ -160,3 +160,16 @@ a:hover {
 
 
 .orange { color: var(--orange); }
+
+
+.review-comment{
+  font-size: 14px;
+  line-height: 1.6;
+  color: red;
+}
+.review-comment::before {
+  content: "※";
+  color: red;
+  font-size: 18px;
+  margin-right: 4px;
+}

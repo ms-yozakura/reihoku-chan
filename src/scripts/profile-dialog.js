@@ -1,10 +1,14 @@
 import { setReadableText } from './readable-text.js';
-import { profiles } from '../data/profiles.js';
+import { profiles, profilePoses } from '../data/profiles.js';
 const dialog = document.getElementById("profile-dialog");
 let opener;
 document.querySelectorAll("[data-target]").forEach((button) => {
   button.addEventListener("click", () => {
     const [title, copy] = profiles[button.dataset.target];
+    const pose = profilePoses[button.dataset.target];
+    const character = document.getElementById('dialog-character');
+    character.src = pose.src;
+    character.alt = pose.alt;
     opener = button;
     setReadableText(document.getElementById("dialog-title"), title);
     setReadableText(document.getElementById("dialog-copy"), copy);
