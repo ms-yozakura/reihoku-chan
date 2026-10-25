@@ -109,3 +109,12 @@ PCの文字スクロール試作は撤回。見出し・地の文・吹き出し
 ## Astro移行後の配置
 
 画像ファイルは `public/img/` に移動しました。本文中の `img/` は同じ画像を指し、サイト上のURLは `/img/` です。紙芝居の編集対象は `src/data/story.js`、描画は `src/components/Story.astro`、操作は `src/scripts/story.js`、スタイルは `src/styles/story.css` です。
+
+
+## 追加のAI生成背景
+
+ユーザー提供のAI生成素材を使用。実写の撮影記録ではなく、町の雰囲気を表すイメージ。
+
+- `public/img/AI-town-from-castle.png`: 表紙の背景。
+- `public/img/AI-from-sky.png`: 「れいほく町は、ここ！」の全面背景。既存の位置図は独立した台紙に表示。
+- `public/img/AI-bay.png`: 「うみが、きらきら！」の背景。

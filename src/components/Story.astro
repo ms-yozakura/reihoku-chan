@@ -1,10 +1,14 @@
 ---
 import { storyScenes } from '../data/story.js';
 import StoryLines from './StoryLines.astro';
+import StoryCoverActions from './StoryCoverActions.astro';
+import StoryNext from './StoryNext.astro';
+import ReadableText from './ReadableText.astro';
+import { readableLineUnits as units } from '../data/readings.js';
+import StoryLocationMap from './StoryLocationMap.astro';
 import '../styles/story.css';
-const units = (text: string) => Math.max(...text.split('\n').map((line) => [...line].length)) * 1.12;
 ---
-<section class="kamishibai" id="top" aria-labelledby="story-title">
+<section class="kamishibai" id="top" aria-labelledby="story-title" style={`--scene-count: ${storyScenes.length}`}>
   <div class="story-stage">
     <h1 id="story-title" class="story-heading">海と、おいしいと、れいほくちゃん。</h1>
     <div id="story-scenes">
@@ -15,17 +19,20 @@ const units = (text: string) => Math.max(...text.split('\n').map((line) => [...l
             <img src={scene.image} alt={scene.imageAlt} loading="eager" decoding="async" fetchpriority={index === 0 ? 'high' : 'low'} />
           </picture>
           <div class="story-overlay" aria-hidden="true"></div>
+          {'mapImage' in scene && <StoryLocationMap src={scene.mapImage} />}
           <div class="story-copy">
-            {'eyebrow' in scene && <p class="story-cover-eyebrow">{scene.eyebrow}</p>}
+            {'eyebrow' in scene && <p class="story-cover-eyebrow"><ReadableText text={scene.eyebrow} /></p>}
             <h2 id={`story-${scene.id}-title`} class="story-scene-title" style={`--line-units: ${units(scene.title)}`}><StoryLines text={scene.title} emphasis={scene.emphasis} /></h2>
             <p class="story-narration" style={`--line-units: ${units(scene.narration)}`}><StoryLines text={scene.narration} emphasis={scene.emphasis} /></p>
+            {index === 0 && <StoryCoverActions nextScene={storyScenes[1].id} />}
+            {index > 0 && <div class="story-copy-next"><StoryNext href={index === storyScenes.length - 1 ? '#profile' : `#story-${storyScenes[index + 1].id}`} /></div>}
           </div>
           <div class="story-character">
             <p class="story-speech" style={`--line-units: ${units(scene.speech)}`}><StoryLines text={scene.speech} /></p>
             <img src={scene.character} alt={scene.characterAlt} width="1024" height="1024" />
           </div>
           <p class="story-credit" hidden></p>
-          <span class="story-number" aria-hidden="true">0{index + 1} / 04</span>
+          <span class="story-number" aria-hidden="true">0{index + 1} / {String(storyScenes.length).padStart(2, '0')}</span>
         </article>
       ))}
     </div>
@@ -33,7 +40,7 @@ const units = (text: string) => Math.max(...text.split('\n').map((line) => [...l
       <nav class="story-progress" aria-label="紙芝居の場面">
         {storyScenes.map((scene, index) => <a href={`#story-${scene.id}`} aria-label={`${index + 1}：${scene.title}`}>0{index + 1}</a>)}
       </nav>
-      <a class="story-skip" href="#profile">もっと苓北町を知ってみよう！ ↓</a>
+      <StoryNext href={`#story-${storyScenes[2].id}`} />
     </div>
   </div>
 </section>

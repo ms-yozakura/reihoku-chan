@@ -142,14 +142,14 @@
   align-self: start;
   margin-left: -20px;
   margin-right: 0;
-  color: #ce6500;
+  color: var(--orange);
 }
 .story-nature .story-character {
   width: min(100%, 330px);
 }
 .story-nature .story-speech {
   margin-right: -50px;
-  color: #ce6500;
+  color: var(--orange);
 }
 .story-sunset .story-character {
   width: min(100%, 290px);
@@ -228,7 +228,7 @@
   /* Change 5 to adjust reading time. Browser chrome only adds background height. */
   --story-content-height: calc(100svh - var(--header-height) - env(safe-area-inset-bottom, 0px));
   --story-viewport-height: calc(100dvh - var(--header-height));
-  height: calc(var(--story-content-height) * 5 + var(--story-viewport-height) - var(--story-content-height));
+  height: calc(var(--story-content-height) * (var(--scene-count) + 1) + var(--story-viewport-height) - var(--story-content-height));
 }
 .is-scroll-story .story-stage {
   position: sticky;
@@ -794,3 +794,184 @@
 .is-mobile-story .story-progress { height: 44px; align-items: center; }
 .is-mobile-story .story-progress a { width: 28px; height: 28px; font-size: 10px; border-width: 1px; }
 .is-mobile-story .story-progress a::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }
+
+/* The cover remains the opening; each following page gets its own heading. */
+.story-scene:not(.story-day) .story-scene-title {
+  position: static; width: auto; height: auto; margin: 0 0 20px;
+  overflow: visible; clip-path: none; white-space: normal;
+  font-size: min(32px, calc(100cqi / var(--line-units)));
+  line-height: 1.7; color: var(--navy);
+  paint-order: stroke fill; -webkit-text-stroke: 4px #fffef5;
+}
+.story-map { background: #eef8fa; }
+
+
+
+.story-map .story-copy { align-self: end; }
+
+.is-scroll-story .story-progress { gap: clamp(10px, 2.6vh, 26px); }
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .story-scene:not(.story-day) .story-scene-title {
+    font-size: min(23px, calc(100cqi / var(--line-units))); margin-bottom: 10px;
+  }
+
+  .story-map .story-character { bottom: calc(80px + 10em); width: min(40%, 150px); }
+  .story-scene:not(.story-day) .story-character { bottom: calc(80px + 10em); }
+  .is-mobile-story .story-progress { gap: 12px; }
+}
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+
+  .is-mobile-story .story-map .story-character { left: auto; right: 24px; bottom: calc(80px + 10em); }
+}
+
+/* Aerial scenery fills the frame; the geographic map stays a separate foreground. */
+.story-map .story-overlay {
+  background: linear-gradient(0deg, #eef8fae8, #eef8fa70 38%, transparent 75%),
+    linear-gradient(90deg, #eef8fa55, transparent 65%);
+}
+.story-location-map {
+  position: absolute; top: 5%; right: 8%; z-index: 2;
+  width: min(36%, 430px); margin: 0; padding: 16px;
+  border: 1px solid #ffffffba; border-radius: 24px;
+  background: #ffffffeb; box-shadow: 0 12px 36px #10477a20;
+  transform: rotate(2deg);
+}
+.story-location-map img { display: block; width: 100%; height: auto; }
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .story-location-map {
+    top: 24px; right: 24px; width: min(68%, 250px); padding: 10px;
+    border-radius: 18px;
+  }
+  .story-map .story-photo img { object-position: 57% center; }
+  .story-map .story-overlay {
+    background: linear-gradient(0deg, #eef8faee, #eef8fa99 30%, transparent 65%);
+  }
+}
+
+/* Ruby shares authored lines and emphasis; remove the thick text outline on small readings. */
+.kamishibai ruby { ruby-position: over; ruby-align: center; }
+.kamishibai rt {
+  font-size: .5em; font-weight: 700; letter-spacing: 0; line-height: 1;
+  -webkit-text-stroke: 0; text-shadow: 0 0 3px white, 0 0 3px white;
+}
+.story-line:has(ruby) { padding-top: .32em; }
+.story-narration:has(ruby) { line-height: 2.05; }
+.story-cover-eyebrow:has(ruby) { line-height: 2.2; }
+.story-skip:has(ruby) { line-height: 2; }
+
+/* Two clear entry points on the cover, with ordinary anchor fallbacks. */
+.story-cover-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.story-cover-action {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 54px; padding: 12px 20px; border: 2px solid var(--blue);
+  border-radius: 999px; font-size: 14px; font-weight: 800; line-height: 1.8;
+  text-decoration: none; box-shadow: 0 4px 16px #10477a18;
+  transition: background-color .2s, box-shadow .2s;
+}
+.story-cover-action-primary { background: var(--blue); color: white; }
+.story-cover-action-secondary { background: #fffef5f5; color: var(--navy); }
+.story-cover-action:hover { box-shadow: 0 6px 20px #10477a30; }
+.story-cover-action-primary:hover { background: var(--navy); color: white; }
+.story-cover-action-secondary:hover { background: white; }
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .story-day .story-cover-actions {
+    position: absolute; left: 24px; right: 24px; bottom: 82px;
+    margin: 0; gap: 10px; flex-wrap: nowrap;
+  }
+  .story-cover-action { flex: 1; min-width: 0; min-height: 52px; padding: 10px 8px; gap: 4px; font-size: 12px; white-space: nowrap; }
+  .story-day .story-narration { bottom: 152px; }
+  .story-day .story-character { bottom: calc(170px + 3.8em); }
+}
+@media (prefers-reduced-motion: reduce) { .story-cover-action { transition: none; } }
+
+/* A single quiet next control stays in one place as the scenery changes. */
+.story-next {
+  position: absolute; right: 88px; bottom: 32px; z-index: 5;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: 68px; height: 68px; border: 2px solid #ffffffd9; border-radius: 50%;
+  background: #fffef5f2; color: var(--navy); box-shadow: 0 4px 18px #10477a26;
+  text-decoration: none; pointer-events: auto; line-height: 1.2;
+  transition: scale .2s ease, background-color .2s, box-shadow .2s;
+}
+.story-next-label { font-size: 11px; font-weight: 800; }
+.story-next-arrow { font-size: 26px; font-weight: 700; line-height: 1; margin-top: 3px; }
+.story-next:hover { text-decoration: none; scale: 1.1; background: white; color: var(--blue); box-shadow: 0 6px 22px #10477a3d; }
+.kamishibai:not([data-scene-index]) .story-bottom > .story-next,
+.kamishibai[data-scene-index="0"] .story-next { visibility: hidden; pointer-events: none; }
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .is-mobile-story .story-next { top: calc(var(--mobile-scene-height) - 68px); bottom: auto; right: 20px; width: 52px; height: 52px; }
+  .story-next-label { font-size: 10px; }
+  .story-next-arrow { font-size: 23px; }
+  .is-mobile-story:not([data-scene-index="0"]) .story-progress {
+    left: 24px; right: 88px; transform: none; justify-content: flex-start; gap: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) { .story-next { transition: none; } }
+
+/* Desktop keeps the next action beside the passage that has just been read. */
+.story-copy-next { display: flex; justify-content: flex-end; margin-top: 20px; }
+.story-copy-next .story-next { position: static; transform: rotate(3deg); flex-shrink: 0; }
+.story-bottom > .story-next { display: none; }
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .story-copy-next { display: none; }
+  .story-bottom > .story-next { display: flex; }
+}
+
+/* Give text, maps and characters their own layout space instead of overlapping offsets. */
+@media (min-width: 761px) and (hover: hover), (min-width: 961px) {
+  .story-scene { gap: clamp(24px, 5vw, 80px); }
+  .story-copy { min-width: 0; transform: none; padding: 20px; }
+  .story-character { max-width: 100%; }
+  .story-character img { max-height: 38svh; object-fit: contain; }
+  .story-map { grid-template-rows: minmax(0, 1fr) auto; row-gap: 20px; padding-top: 28px; padding-bottom: 32px; }
+  .story-map .story-location-map {
+    position: static; grid-column: 2; grid-row: 1; justify-self: center; align-self: center;
+    width: min(100%, 360px); max-height: 100%; transform: none;
+  }
+  .story-map .story-location-map img { max-height: 24svh; object-fit: contain; }
+  .story-map .story-copy { grid-column: 2; grid-row: 2; align-self: end; padding: 0; }
+  .story-map .story-character { grid-column: 1; grid-row: 1 / span 2; align-self: end; }
+}
+@media (max-width: 760px), (hover: none) and (pointer: coarse) and (max-width: 960px) {
+  .is-mobile-story { --mobile-scene-height: max(680px, calc(100svh - var(--header-height) - env(safe-area-inset-bottom, 0px))); }
+  .is-mobile-story .story-scene,
+  .story-scene, .story-day {
+    display: grid; grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto; gap: 20px;
+    padding: 24px 24px 84px; min-height: 680px;
+  }
+  .is-mobile-story .story-scene { height: var(--mobile-scene-height); }
+  .story-scene .story-copy,
+  .story-scene.character-right .story-copy {
+    position: static; inset: auto; grid-column: 1; grid-row: 2;
+    display: block; width: 100%; height: auto; padding: 0; transform: none;
+    align-self: end;
+  }
+  .story-scene .story-character,
+  .story-scene.character-right .story-character,
+  .is-mobile-story .story-map .story-character {
+    position: static; inset: auto; grid-column: 1; grid-row: 1;
+    width: min(48%, 180px); align-self: end; justify-self: start;
+    margin: 0;
+  }
+  .story-scene.character-right .story-character { justify-self: end; }
+  .story-scene .story-character img { max-height: 22svh; }
+  .story-map .story-location-map {
+    position: static; inset: auto; grid-column: 1; grid-row: 1;
+    width: 55%; max-width: 250px; padding: 8px;
+    justify-self: end; align-self: start; transform: none;
+  }
+  .is-mobile-story .story-map .story-character { width: 40%; }
+  .story-day { grid-template-rows: auto minmax(0, 1fr); }
+  .story-scene.story-day .story-copy { grid-row: 1; align-self: start; }
+  .story-day .story-cover-eyebrow,
+  .story-day .story-scene-title,
+  .story-day .story-narration,
+  .story-day .story-cover-actions {
+    position: static; inset: auto; width: auto; height: auto;
+  }
+  .story-day .story-scene-title { margin-bottom: 16px; }
+  .story-day .story-narration { margin-top: 12px; }
+  .story-day .story-cover-actions { margin-top: 20px; }
+  .story-scene.story-day .story-character { grid-row: 2; justify-self: center; width: min(50%, 180px); }
+}

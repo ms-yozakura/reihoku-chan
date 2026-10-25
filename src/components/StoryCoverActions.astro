@@ -1,0 +1,12 @@
+---
+interface Props { nextScene: string; }
+const { nextScene } = Astro.props;
+---
+<div class="story-cover-actions">
+  <a class="story-cover-action story-cover-action-primary" href={`#story-${nextScene}`} data-story-next>
+    <span class="story-cover-action-label">まちをたんけん！</span><span aria-hidden="true"> →</span>
+  </a>
+  <a class="story-cover-action story-cover-action-secondary" href="#profile">
+    <span class="story-cover-action-label">れいほくちゃんって？</span><span aria-hidden="true"> ↓</span>
+  </a>
+</div>

@@ -1,0 +1,8 @@
+---
+interface Props { href: string; }
+const { href } = Astro.props;
+---
+<a class="story-next" href={href} aria-label={href === '#profile' ? 'つぎへ：れいほくちゃんの紹介へ' : 'つぎのコマへ'}>
+  <span class="story-next-label">つぎへ</span>
+  <span class="story-next-arrow" aria-hidden="true">{href === '#profile' ? '↓' : '→'}</span>
+</a>

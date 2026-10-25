@@ -1,0 +1,8 @@
+---
+import { readableParts } from '../data/readings.js';
+interface Props { text: string; }
+const { text } = Astro.props;
+---
+{readableParts(text).map((part) => part.reading
+  ? <ruby>{part.text}<rp>（</rp><rt>{part.reading}</rt><rp>）</rp></ruby>
+  : part.text)}
