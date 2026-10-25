@@ -1,0 +1,43 @@
+// Story content shared by Astro and the browser controller.
+export const storyScenes = [
+  {
+    id: "tomioka", title: "海と、おいしいと、\nれいほくちゃん。", eyebrow: "熊本・天草の苓北町から、こんにちは。", location: "富岡巴崎と町並み", theme: "day", side: "right",
+    image: "/img/town-from-castle.jpg", imageMobile: null,
+    imagePosition: "center 65%", imagePositionMobile: "40% center",
+    imageAlt: "富岡城から見渡す巴崎と海、向こう岸の町と山並み",
+    placeholder: false, character: "/img/raise_right.PNG", characterAlt: "右のひれを上げて迎えるれいほくちゃん",
+    speech: "ボクのまち、\nいっしょに歩こう！",
+    narration: "海にかこまれた、やさしいまち。\nボクのふるさとを、あんないするね。",
+    emphasis: ["おいしい", "ふるさと"],
+  },
+  {
+    id: "citrus", title: "おいしいみかん、みつけた！", location: "みかん畑と海", theme: "citrus", side: "right",
+    image: "/img/bankan.jpg", imageMobile: null,
+    imagePosition: "center", imagePositionMobile: "60% center",
+    imageAlt: "青い海を背景に実る晩柑", placeholder: false,
+    character: "/img/hold_mikan.PNG", characterAlt: "みかんを大切そうに抱えるれいほくちゃん",
+    speech: "みかん、だいすき！",
+    narration: "あたたかな日ざしと\n海からのかぜで、\nおいしいみかんが\nそだっているよ！",
+    emphasis: ["おいしいみかん"],
+  },
+  {
+    id: "castle", title: "海も、山も、まちも", location: "富岡城跡", theme: "nature", side: "left",
+    image: "/img/tomioka-castle-ruins.jpg", imageMobile: null,
+    imagePosition: "center 65%", imagePositionMobile: "45% center",
+    imageAlt: "空の下に広がる富岡城跡の石垣と白壁、周囲のみどり",
+    placeholder: false, character: "/img/raise_hands.PNG", characterAlt: "両方のひれを広げて喜ぶれいほくちゃん",
+    speech: "わぁ！\nいいながめ！",
+    narration: "海を見わたせる、高いところ。\n海も、山も、みどりも、まちも、\nぜんぶつながって\nとってもきれいなんだ！",
+    emphasis: ["海も、山も"],
+  },
+  {
+    id: "sunset", title: "このまちを、もっと知ってほしいな", location: "海辺の夕景", theme: "sunset", side: "left",
+    image: "/img/maybe-sunset.jpg", imageMobile: null,
+    imagePosition: "center", imagePositionMobile: "60% center",
+    imageAlt: "海辺の草木の向こうに広がる、淡いオレンジ色の夕空と海",
+    placeholder: false, character: "/img/hold_heart.PNG", characterAlt: "ピンクのハートを抱えて笑うれいほくちゃん",
+    speech: "きらきらしてるね！",
+    narration: "夕方になると、\n海も空もオレンジ色に。\nこんなすてきなけしきも、\nボクのまちのたからもの。",
+    emphasis: ["オレンジ色", "たからもの"],
+  },
+];

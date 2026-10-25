@@ -1,0 +1,24 @@
+---
+import { profiles } from '../data/profiles.js';
+const icons: Record<string, string> = {
+  skill: 'mdi:swim', like: 'mdi:binoculars', personality: 'mdi:heart-outline',
+  food: 'mdi:fish', dream: 'mdi:sprout', comment: 'mdi:comment-text-outline',
+};
+---
+    <section class="section details" id="details">
+      <div class="wrap">
+        <div class="section-heading">
+          <h2>
+            <span class="marker">ボクのこと、もっとしってね。</span>
+          </h2>
+          <p>きになるボタンを、おしてみてね！</p>
+        </div>
+        <div class="profile-buttons">
+          {Object.entries(profiles).map(([key, [title]]) => (
+            <button data-target={key} aria-haspopup="dialog" aria-controls="profile-dialog">
+              <iconify-icon icon={icons[key]} aria-hidden="true"></iconify-icon>{title}
+            </button>
+          ))}
+        </div>
+      </div>
+    </section>

@@ -1,0 +1,40 @@
+---
+import { storyScenes } from '../data/story.js';
+import StoryLines from './StoryLines.astro';
+import '../styles/story.css';
+const units = (text: string) => Math.max(...text.split('\n').map((line) => [...line].length)) * 1.12;
+---
+<section class="kamishibai" id="top" aria-labelledby="story-title">
+  <div class="story-stage">
+    <h1 id="story-title" class="story-heading">海と、おいしいと、れいほくちゃん。</h1>
+    <div id="story-scenes">
+      {storyScenes.map((scene, index) => (
+        <article id={`story-${scene.id}`} class={`story-scene story-${scene.theme} character-${scene.side}`} aria-labelledby={`story-${scene.id}-title`} style={`--photo-position: ${scene.imagePosition}; --photo-position-mobile: ${scene.imagePositionMobile}`}>
+          <picture class="story-photo">
+            {scene.imageMobile && <source media="(max-width: 640px)" srcset={scene.imageMobile} />}
+            <img src={scene.image} alt={scene.imageAlt} loading="eager" decoding="async" fetchpriority={index === 0 ? 'high' : 'low'} />
+          </picture>
+          <div class="story-overlay" aria-hidden="true"></div>
+          <div class="story-copy">
+            {'eyebrow' in scene && <p class="story-cover-eyebrow">{scene.eyebrow}</p>}
+            <h2 id={`story-${scene.id}-title`} class="story-scene-title" style={`--line-units: ${units(scene.title)}`}><StoryLines text={scene.title} emphasis={scene.emphasis} /></h2>
+            <p class="story-narration" style={`--line-units: ${units(scene.narration)}`}><StoryLines text={scene.narration} emphasis={scene.emphasis} /></p>
+          </div>
+          <div class="story-character">
+            <p class="story-speech" style={`--line-units: ${units(scene.speech)}`}><StoryLines text={scene.speech} /></p>
+            <img src={scene.character} alt={scene.characterAlt} width="1024" height="1024" />
+          </div>
+          <p class="story-credit" hidden></p>
+          <span class="story-number" aria-hidden="true">0{index + 1} / 04</span>
+        </article>
+      ))}
+    </div>
+    <div class="story-bottom">
+      <nav class="story-progress" aria-label="紙芝居の場面">
+        {storyScenes.map((scene, index) => <a href={`#story-${scene.id}`} aria-label={`${index + 1}：${scene.title}`}>0{index + 1}</a>)}
+      </nav>
+      <a class="story-skip" href="#profile">もっと苓北町を知ってみよう！ ↓</a>
+    </div>
+  </div>
+</section>
+<script>import '../scripts/story.js';</script>

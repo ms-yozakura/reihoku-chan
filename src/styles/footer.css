@@ -1,0 +1,29 @@
+footer {
+  position: relative;
+  background: var(--blue);
+  color: #fff;
+  padding-block: 28px;
+}
+.footer-wave {
+  bottom: calc(100% - 1px);
+  fill: var(--blue);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 12px;
+}
+.footer-inner small {
+  font-size: 11px;
+}
+
+.footer-wave {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  pointer-events: none;
+}

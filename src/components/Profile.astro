@@ -1,0 +1,42 @@
+---
+import BirthStory from './BirthStory.astro';
+import CharacterCharms from './CharacterCharms.astro';
+---
+    <section class="section about section-blue" id="profile">
+      <div class="wrap about-grid">
+        <div class="about-copy">
+          <h2><span class="marker">れいほくちゃんって？</span></h2>
+          <p>
+            ぼくは、
+            <ruby>苓北町<rp>（</rp>
+              <rt>れいほくまち</rt>
+              <rp>）</rp>
+            </ruby>の
+            <ruby>魅力<rp>（</rp>
+              <rt>すてきなところ</rt>
+              <rp>）</rp>
+            </ruby>をみんなにつたえるためにうまれた、ミナミハンドウイルカ
+            のおとこのこ！あたまにはレタスに<ruby>緋扇貝<rp>（</rp>
+              <rt>きれいなかい</rt>
+              <rp>）</rp>
+            </ruby>、ほっぺにはみかん！ <br /><ruby>苓北町<rp>（</rp>
+              <rt>れいほくまち</rt>
+              <rp>）</rp>
+            </ruby>のすてきなところを、たっくさんみんなにおしえるばい！
+          </p>
+          <p class="little-note">
+            ほんとはまだおなまえはないんだ、気軽に"れいほくちゃん"ってよんでね！
+          </p>
+        </div>
+        <div class="about-character">
+          <div class="about-character-idle">
+            <img class="about-eyes-open" src="/img/reihoku-chan.png" alt="笑顔のれいほくちゃん" width="1024" height="1024" loading="lazy" />
+            <img class="about-eyes-half" src="/img/half_closed_eyes.PNG" alt="" aria-hidden="true" width="1024" height="1024" decoding="async" />
+            <img class="about-eyes-closed" src="/img/closed_eyes.PNG" alt="" aria-hidden="true" width="1024" height="1024" decoding="async" />
+          </div>
+        </div>
+      </div>
+      <BirthStory />
+      <CharacterCharms />
+    </section>
+<script>import '../scripts/character.js';</script>

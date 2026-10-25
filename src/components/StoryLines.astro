@@ -1,0 +1,8 @@
+---
+interface Props { text: string; emphasis?: string[]; }
+const { text, emphasis = [] } = Astro.props;
+const pattern = emphasis.length
+  ? new RegExp(`(${emphasis.map((phrase) => phrase.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
+  : null;
+---
+{text.split('\n').map((line) => <span class="story-line">{(pattern ? line.split(pattern) : [line]).map((part) => emphasis.includes(part) ? <span class="story-emphasis">{part}</span> : part)}</span>)}

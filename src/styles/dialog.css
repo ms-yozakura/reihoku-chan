@@ -1,0 +1,38 @@
+/* Native dialog handles keyboard focus and Escape. */
+dialog {
+  width: min(480px, calc(100% - 40px));
+  max-height: calc(100dvh - 40px);
+  padding: 40px 24px 16px;
+  border: 1px solid #a0d6e9;
+  border-radius: var(--radius);
+  color: var(--navy);
+  text-align: center;
+}
+dialog::backdrop {
+  background: #13466866;
+  backdrop-filter: blur(5px);
+}
+dialog img {
+  margin-inline: auto;
+}
+#dialog-copy {
+  white-space: pre-line;
+}
+.dialog-close {
+  position: absolute;
+  right: 8px;
+  top: 4px;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  background: none;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  font:
+    28px/1 Arial,
+    sans-serif;
+}
+body.dialog-open {
+  overflow: hidden;
+}

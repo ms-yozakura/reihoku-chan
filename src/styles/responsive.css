@@ -1,0 +1,173 @@
+/* Two structural breakpoints; spacing and type scale fluidly above. */
+@media (max-width: 960px) {
+  .charms {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .about-grid {
+    grid-template-columns: 1.4fr 1fr;
+  }
+  .profile-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .story-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .menu-toggle {
+    display: block;
+    min-height: 44px;
+    padding: 8px 12px;
+    border: 1px solid #c5e6f3;
+    border-radius: 12px;
+    background: white;
+    font-size: 13px;
+  }
+  .site-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    padding: 16px 20px 24px;
+    background: white;
+    border-bottom: 1px solid #c5e6f3;
+  }
+  .site-nav.is-open {
+    display: grid;
+    gap: 4px;
+  }
+}
+@media (max-width: 640px) {
+  .charms {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .split,
+  .about-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .about-character {
+    width: min(240px, 70%);
+    margin: -12px auto;
+  }
+  .town-intro > .town-photo {
+    order: 1;
+  }
+  .profile-buttons {
+    gap: 10px;
+  }
+  .profile-buttons button {
+    font-size: 12px;
+    padding-inline: 4px;
+  }
+  .story-cards .panel {
+    padding: 20px 12px;
+  }
+  .story-cards h3 {
+    font-size: 16px;
+  }
+  .map > img:first-child {
+    height: 240px;
+  }
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-inner nav {
+    justify-content: center;
+    gap: 16px;
+  }
+  .split p br,
+  .about-copy p br {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Shared entrance and interaction motion; content stays visible without JavaScript. */
+.button,
+.profile-buttons button,
+.dialog-close {
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s,
+    translate 0.2s;
+}
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.2, 0.7, 0.3, 1),
+    background-color 0.2s,
+    box-shadow 0.2s,
+    translate 0.2s;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.button:hover,
+.profile-buttons button:hover {
+  translate: 0 -4px;
+}
+.dialog-close {
+  border-radius: 50%;
+}
+.dialog-close:hover {
+  background: var(--pale);
+}
+dialog:focus {
+  outline: none;
+}
+.dialog-close:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 0;
+}
+dialog[open] {
+  animation: pop-in 0.3s cubic-bezier(0.2, 0.7, 0.3, 1);
+}
+dialog[open]::backdrop {
+  animation: backdrop-in 0.25s ease;
+}
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal,
+  .button,
+  .profile-buttons button,
+  .dialog-close {
+    transition: none;
+  }
+  .button:hover,
+  .profile-buttons button:hover {
+    translate: none;
+  }
+  dialog[open],
+  dialog[open]::backdrop {
+    animation: none;
+  }
+}
+
